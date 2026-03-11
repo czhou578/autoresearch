@@ -1,0 +1,367 @@
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+---
+loss:             1.085874
+training_seconds: 285.9
+total_seconds:    285.9
+peak_vram_mb:     3390.4
+num_steps:        3696
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/root/autoresearch/train.py", line 120, in <module>
+    for inputs, targets in train_loader:
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 630, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1327, in _next_data
+    idx, data = self._get_data()
+                ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1283, in _get_data
+    success, data = self._try_get_data()
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1131, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/queue.py", line 180, in get
+    self.not_empty.wait(remaining)
+  File "/usr/lib/python3.11/threading.py", line 331, in wait
+    gotit = waiter.acquire(True, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 3.708374
+Epoch 2 loss: 3.406329
+Epoch 3 loss: 3.317951
+Epoch 4 loss: 3.431191
+Epoch 5 loss: 2.312539
+Epoch 6 loss: 2.575575
+Epoch 7 loss: 1.971681
+Epoch 8 loss: 1.707298
+Epoch 9 loss: 1.772919
+Epoch 10 loss: 1.748909
+Epoch 11 loss: 1.497167
+Epoch 12 loss: 1.478583
+Epoch 13 loss: 1.353069
+Epoch 14 loss: 1.252403
+Epoch 15 loss: 1.247805
+Epoch 16 loss: 1.203136
+Epoch 17 loss: 1.142189
+Epoch 18 loss: 1.137408
+Epoch 19 loss: 1.108592
+Epoch 20 loss: 1.108663
+Epoch 21 loss: 1.112816
+---
+loss:             1.108592
+training_seconds: 288.1
+total_seconds:    288.1
+peak_vram_mb:     3390.4
+num_steps:        3696
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 3.970952
+Epoch 2 loss: 3.623826
+Epoch 3 loss: 3.305675
+Epoch 4 loss: 3.177495
+Epoch 5 loss: 2.764651
+Epoch 6 loss: 2.777616
+Epoch 7 loss: 2.485719
+Epoch 8 loss: 2.243783
+Epoch 9 loss: 2.021965
+Epoch 10 loss: 2.210423
+Epoch 11 loss: 1.811188
+Epoch 12 loss: 1.864940
+Epoch 13 loss: 1.690654
+Epoch 14 loss: 1.802420
+Epoch 15 loss: 1.452650
+Epoch 16 loss: 1.394082
+Epoch 17 loss: 1.367051
+Epoch 18 loss: 1.196348
+Epoch 19 loss: 1.101013
+Epoch 20 loss: 1.054345
+Epoch 21 loss: 1.043834
+---
+loss:             1.043834
+training_seconds: 273.0
+total_seconds:    273.0
+peak_vram_mb:     3390.4
+num_steps:        3696
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 4.042213
+Epoch 2 loss: 3.724793
+Epoch 3 loss: 3.439655
+Epoch 4 loss: 3.553618
+Epoch 5 loss: 3.509305
+Epoch 6 loss: 2.712468
+Epoch 7 loss: 2.739715
+Epoch 8 loss: 2.351611
+Epoch 9 loss: 2.484446
+Epoch 10 loss: 2.069895
+Epoch 11 loss: 2.107878
+Epoch 12 loss: 2.161573
+Epoch 13 loss: 1.886179
+Epoch 14 loss: 1.813410
+Epoch 15 loss: 2.067049
+Epoch 16 loss: 1.674359
+Epoch 17 loss: 1.546521
+Epoch 18 loss: 1.525679
+Epoch 19 loss: 1.471658
+---
+loss:             1.471658
+training_seconds: 300.1
+total_seconds:    300.1
+peak_vram_mb:     5633.5
+num_steps:        1672
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 3.983847
+Traceback (most recent call last):
+  File "/root/autoresearch/train.py", line 125, in <module>
+    outputs = model(inputs)
+              ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autoresearch/train.py", line 21, in forward
+    return self.resnet(x)
+           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torchvision/models/resnet.py", line 274, in _forward_impl
+    x = self.layer2(x)
+        ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torchvision/models/resnet.py", line 96, in forward
+    out = self.conv2(out)
+          ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/conv.py", line 458, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/conv.py", line 454, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 4.046675
+Epoch 2 loss: 3.634589
+Epoch 3 loss: 3.310221
+Epoch 4 loss: 3.095676
+Epoch 5 loss: 3.080204
+Epoch 6 loss: 2.679680
+Epoch 7 loss: 2.435885
+Epoch 8 loss: 2.370139
+Epoch 9 loss: 2.343593
+Epoch 10 loss: 2.135047
+Epoch 11 loss: 2.189314
+Epoch 12 loss: 1.903005
+Epoch 13 loss: 1.901359
+Epoch 14 loss: 1.691946
+Epoch 15 loss: 1.666844
+Epoch 16 loss: 1.413504
+Epoch 17 loss: 1.266633
+Epoch 18 loss: 1.193127
+Epoch 19 loss: 1.126847
+Epoch 20 loss: 1.074706
+Epoch 21 loss: 1.066595
+---
+loss:             1.066595
+training_seconds: 283.8
+total_seconds:    283.8
+peak_vram_mb:     3390.4
+num_steps:        3696
+num_params_M:     11.22
+Epoch 1 loss: 3.910472
+Epoch 2 loss: 3.647094
+Epoch 3 loss: 3.379752
+Epoch 4 loss: 3.130692
+Epoch 5 loss: 2.670702
+Epoch 6 loss: 2.350675
+Epoch 7 loss: 2.479767
+Epoch 8 loss: 2.256359
+Epoch 9 loss: 2.036623
+Epoch 10 loss: 1.894163
+Epoch 11 loss: 1.860886
+Epoch 12 loss: 1.642441
+Epoch 13 loss: 1.549918
+Epoch 14 loss: 1.534115
+Epoch 15 loss: 1.349184
+Epoch 16 loss: 1.345600
+Epoch 17 loss: 1.257836
+Epoch 18 loss: 1.157361
+Epoch 19 loss: 1.099585
+Epoch 20 loss: 1.056195
+Epoch 21 loss: 1.048786
+---
+loss:             1.048786
+training_seconds: 274.8
+total_seconds:    274.8
+peak_vram_mb:     3390.4
+num_steps:        3696
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/root/autoresearch/train.py", line 120, in <module>
+    for inputs, targets in train_loader:
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 630, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1327, in _next_data
+    idx, data = self._get_data()
+                ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1283, in _get_data
+    success, data = self._try_get_data()
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/utils/data/dataloader.py", line 1131, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/queue.py", line 180, in get
+    self.not_empty.wait(remaining)
+  File "/usr/lib/python3.11/threading.py", line 331, in wait
+    gotit = waiter.acquire(True, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 4.055025
+Epoch 2 loss: 3.757201
+Epoch 3 loss: 3.436008
+Epoch 4 loss: 3.145476
+Epoch 5 loss: 3.193896
+Epoch 6 loss: 2.923636
+Epoch 7 loss: 2.825480
+Epoch 8 loss: 2.289070
+Epoch 9 loss: 2.246706
+Epoch 10 loss: 2.440512
+Epoch 11 loss: 1.933134
+Epoch 12 loss: 1.782812
+Epoch 13 loss: 1.600653
+Epoch 14 loss: 1.696033
+Epoch 15 loss: 1.527834
+Epoch 16 loss: 1.471684
+Epoch 17 loss: 1.338514
+Epoch 18 loss: 1.243664
+Epoch 19 loss: 1.139669
+Epoch 20 loss: 1.050441
+Epoch 21 loss: 1.024324
+Epoch 22 loss: 1.017091
+---
+loss:             1.017091
+training_seconds: 281.6
+total_seconds:    281.6
+peak_vram_mb:     3390.4
+num_steps:        3872
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 4.043392
+Epoch 2 loss: 3.590601
+Epoch 3 loss: 3.114176
+Epoch 4 loss: 2.877349
+Epoch 5 loss: 2.753714
+Epoch 6 loss: 2.607868
+Epoch 7 loss: 2.257289
+Epoch 8 loss: 2.179120
+Epoch 9 loss: 2.043758
+Epoch 10 loss: 1.791265
+Epoch 11 loss: 1.837060
+Epoch 12 loss: 1.752522
+Epoch 13 loss: 1.764402
+Epoch 14 loss: 1.509654
+Epoch 15 loss: 1.503120
+Epoch 16 loss: 1.408218
+Epoch 17 loss: 1.325305
+Epoch 18 loss: 1.231176
+Epoch 19 loss: 1.149538
+Epoch 20 loss: 1.065119
+Epoch 21 loss: 1.021655
+Epoch 22 loss: 1.016139
+---
+loss:             1.016139
+training_seconds: 300.5
+total_seconds:    300.5
+peak_vram_mb:     3390.4
+num_steps:        3860
+num_params_M:     11.22
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Epoch 1 loss: 3.829640
+Epoch 2 loss: 3.483592
+Epoch 3 loss: 2.969001
+Epoch 4 loss: 2.837423
+Epoch 5 loss: 2.846226
+Epoch 6 loss: 2.428157
+Epoch 7 loss: 2.142258
+Epoch 8 loss: 1.980077
+Epoch 9 loss: 1.938270
+Epoch 10 loss: 2.030438
+Epoch 11 loss: 1.694023
+Epoch 12 loss: 1.543127
+Epoch 13 loss: 1.573871
+Epoch 14 loss: 1.406924
+Epoch 15 loss: 1.584895
+Epoch 16 loss: 1.354902
+Epoch 17 loss: 1.241675
+Epoch 18 loss: 1.164854
+Epoch 19 loss: 1.111173
+Epoch 20 loss: 1.051617
+Epoch 21 loss: 1.028456
+Epoch 22 loss: 1.024918
+---
+loss:             1.024918
+training_seconds: 287.6
+total_seconds:    287.6
+peak_vram_mb:     3390.4
+num_steps:        3872
+num_params_M:     11.22

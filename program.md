@@ -109,3 +109,5 @@ As an example use case, a user might leave you running while they sleep. If each
 **Visual**: At the end, create a Jupyter Notebook and using matplotlib, plot the number of experiments taken vs the validation loss in a plot similar to the one below using the collected numbers from `results.tsv`: 
 
 ![alt text](sample_plot.png)
+
+**Additional Instructions**: During our session you are to create & maintain a session log, writing into it everything you do, all your work, a running summary of fixes, patches, hypotheses, tasks, bugs, etc. You will start this doc at the start of this session in "session_log.log" file.

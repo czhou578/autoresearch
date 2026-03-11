@@ -1,0 +1,941 @@
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/88, Loss: 4.7195
+Batch 50/88, Loss: 4.2226
+Epoch 1 - Training Loss: 4.2480, Validation Loss: 4.0355
+Starting Epoch 2
+Batch 0/88, Loss: 3.9065
+Batch 50/88, Loss: 3.7959
+Epoch 2 - Training Loss: 3.7336, Validation Loss: 3.8010
+Starting Epoch 3
+Batch 0/88, Loss: 3.4681
+Batch 50/88, Loss: 3.3488
+Epoch 3 - Training Loss: 3.3543, Validation Loss: 3.7148
+Starting Epoch 4
+Batch 0/88, Loss: 3.1251
+Batch 50/88, Loss: 3.1095
+Epoch 4 - Training Loss: 3.0063, Validation Loss: 3.4158
+Starting Epoch 5
+Batch 0/88, Loss: 2.7374
+Batch 50/88, Loss: 2.8482
+Epoch 5 - Training Loss: 2.7280, Validation Loss: 3.1442
+Starting Epoch 6
+Batch 0/88, Loss: 2.5200
+Batch 50/88, Loss: 2.4027
+Epoch 6 - Training Loss: 2.4788, Validation Loss: 2.9090
+Starting Epoch 7
+Batch 0/88, Loss: 2.2911
+Batch 50/88, Loss: 2.3097
+Epoch 7 - Training Loss: 2.2932, Validation Loss: 2.8712
+Starting Epoch 8
+Batch 0/88, Loss: 2.1306
+Batch 50/88, Loss: 2.2200
+Epoch 8 - Training Loss: 2.1422, Validation Loss: 2.8326
+Starting Epoch 9
+Batch 0/88, Loss: 2.0158
+Batch 50/88, Loss: 1.9350
+Epoch 9 - Training Loss: 1.9904, Validation Loss: 2.1082
+Starting Epoch 10
+Batch 0/88, Loss: 1.9658
+Batch 50/88, Loss: 1.8956
+Epoch 10 - Training Loss: 1.8678, Validation Loss: 2.0889
+Starting Epoch 11
+Batch 0/88, Loss: 1.7048
+Batch 50/88, Loss: 1.7070
+Epoch 11 - Training Loss: 1.7565, Validation Loss: 2.1560
+Starting Epoch 12
+Batch 0/88, Loss: 1.6598
+Batch 50/88, Loss: 1.6127
+Epoch 12 - Training Loss: 1.6671, Validation Loss: 1.9369
+Starting Epoch 13
+Batch 0/88, Loss: 1.5298
+Batch 50/88, Loss: 1.6631
+Epoch 13 - Training Loss: 1.5717, Validation Loss: 1.7649
+Starting Epoch 14
+Batch 0/88, Loss: 1.5655
+Batch 50/88, Loss: 1.4909
+Epoch 14 - Training Loss: 1.4886, Validation Loss: 2.2182
+Starting Epoch 15
+Batch 0/88, Loss: 1.3852
+Batch 50/88, Loss: 1.3516
+Epoch 15 - Training Loss: 1.4271, Validation Loss: 1.9125
+Starting Epoch 16
+Batch 0/88, Loss: 1.4044
+Batch 50/88, Loss: 1.4690
+Epoch 16 - Training Loss: 1.3488, Validation Loss: 1.8893
+Starting Epoch 17
+Batch 0/88, Loss: 1.2142
+Batch 50/88, Loss: 1.3582
+Epoch 17 - Training Loss: 1.2884, Validation Loss: 2.0154
+Starting Epoch 18
+Batch 0/88, Loss: 1.2680
+Batch 50/88, Loss: 1.2119
+Epoch 18 - Training Loss: 1.2249, Validation Loss: 1.5708
+Starting Epoch 19
+Batch 0/88, Loss: 1.1047
+Batch 50/88, Loss: 1.2361
+Epoch 19 - Training Loss: 1.1752, Validation Loss: 1.6615
+Starting Epoch 20
+Batch 0/88, Loss: 1.1511
+Batch 50/88, Loss: 1.1156
+Epoch 20 - Training Loss: 1.1164, Validation Loss: 1.5002
+Starting Epoch 21
+Batch 0/88, Loss: 0.9678
+Batch 50/88, Loss: 1.1109
+Epoch 21 - Training Loss: 1.0421, Validation Loss: 1.4526
+Starting Epoch 22
+Batch 0/88, Loss: 1.0708
+Batch 50/88, Loss: 0.9362
+Epoch 22 - Training Loss: 0.9975, Validation Loss: 1.5203
+Starting Epoch 23
+Batch 0/88, Loss: 0.9423
+Batch 50/88, Loss: 0.8718
+Epoch 23 - Training Loss: 0.9385, Validation Loss: 1.3653
+Starting Epoch 24
+Batch 0/88, Loss: 0.8318
+Batch 50/88, Loss: 0.8565
+Epoch 24 - Training Loss: 0.8895, Validation Loss: 1.3603
+Starting Epoch 25
+Batch 0/88, Loss: 0.8692
+Batch 50/88, Loss: 0.7622
+Epoch 25 - Training Loss: 0.8285, Validation Loss: 1.3346
+Starting Epoch 26
+Batch 0/88, Loss: 0.8170
+Batch 50/88, Loss: 0.7662
+Epoch 26 - Training Loss: 0.7760, Validation Loss: 1.3104
+Starting Epoch 27
+Batch 0/88, Loss: 0.6962
+Batch 50/88, Loss: 0.6883
+Epoch 27 - Training Loss: 0.7251, Validation Loss: 1.2671
+Starting Epoch 28
+Batch 0/88, Loss: 0.6580
+Batch 50/88, Loss: 0.6908
+Epoch 28 - Training Loss: 0.6792, Validation Loss: 1.2331
+Starting Epoch 29
+Batch 0/88, Loss: 0.6011
+Batch 50/88, Loss: 0.6608
+Epoch 29 - Training Loss: 0.6446, Validation Loss: 1.2359
+Starting Epoch 30
+Batch 0/88, Loss: 0.6495
+Batch 50/88, Loss: 0.7162
+Epoch 30 - Training Loss: 0.6228, Validation Loss: 1.2213
+Starting Epoch 31
+Batch 0/88, Loss: 0.5529
+Batch 50/88, Loss: 0.6290
+Epoch 31 - Training Loss: 0.5937, Validation Loss: 1.2188
+Starting Epoch 32
+Batch 0/88, Loss: 0.6088
+Batch 50/88, Loss: 0.5015
+Epoch 32 - Training Loss: 0.5845, Validation Loss: 1.2172
+Starting Epoch 33
+Batch 0/88, Loss: 0.6400
+Batch 50/88, Loss: 0.5257
+Epoch 33 - Training Loss: 0.5795, Validation Loss: 1.2165
+
+---
+loss:          1.216545
+training_seconds: 194.3
+total_seconds:    198.1
+peak_vram_mb:     5482.5
+num_steps:        2904
+num_params_M:     0.5
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/88, Loss: 4.6709
+Batch 50/88, Loss: 4.1569
+Epoch 1 - Training Loss: 4.2506, Validation Loss: 3.9385
+Starting Epoch 2
+Batch 0/88, Loss: 4.0378
+Batch 50/88, Loss: 3.7972
+Epoch 2 - Training Loss: 3.8247, Validation Loss: 3.8035
+Starting Epoch 3
+Batch 0/88, Loss: 3.6343
+Batch 50/88, Loss: 3.5617
+Epoch 3 - Training Loss: 3.4841, Validation Loss: 3.3467
+Starting Epoch 4
+Batch 0/88, Loss: 3.2262
+Batch 50/88, Loss: 3.2986
+Epoch 4 - Training Loss: 3.1854, Validation Loss: 3.6689
+Starting Epoch 5
+Batch 0/88, Loss: 3.1096
+Batch 50/88, Loss: 2.8876
+Epoch 5 - Training Loss: 2.9321, Validation Loss: 3.0500
+Starting Epoch 6
+Batch 0/88, Loss: 2.6704
+Batch 50/88, Loss: 2.7376
+Epoch 6 - Training Loss: 2.7158, Validation Loss: 2.9020
+Starting Epoch 7
+Batch 0/88, Loss: 2.6297
+Batch 50/88, Loss: 2.6032
+Epoch 7 - Training Loss: 2.5441, Validation Loss: 3.0138
+Starting Epoch 8
+Batch 0/88, Loss: 2.3723
+Batch 50/88, Loss: 2.3494
+Epoch 8 - Training Loss: 2.3884, Validation Loss: 2.9244
+Starting Epoch 9
+Batch 0/88, Loss: 2.2131
+Batch 50/88, Loss: 2.3103
+Epoch 9 - Training Loss: 2.2648, Validation Loss: 2.4794
+Starting Epoch 10
+Batch 0/88, Loss: 2.1283
+Batch 50/88, Loss: 2.1444
+Epoch 10 - Training Loss: 2.1633, Validation Loss: 2.3666
+Starting Epoch 11
+Batch 0/88, Loss: 1.9301
+Batch 50/88, Loss: 2.0250
+Epoch 11 - Training Loss: 2.0535, Validation Loss: 2.4735
+Starting Epoch 12
+Batch 0/88, Loss: 2.0344
+Batch 50/88, Loss: 2.0987
+Epoch 12 - Training Loss: 1.9726, Validation Loss: 2.2460
+Starting Epoch 13
+Batch 0/88, Loss: 1.8582
+Batch 50/88, Loss: 1.9142
+Epoch 13 - Training Loss: 1.8947, Validation Loss: 2.1609
+Starting Epoch 14
+Batch 0/88, Loss: 1.7847
+Batch 50/88, Loss: 1.8181
+Epoch 14 - Training Loss: 1.8225, Validation Loss: 2.3327
+Starting Epoch 15
+Batch 0/88, Loss: 1.7479
+Batch 50/88, Loss: 1.8053
+Epoch 15 - Training Loss: 1.7722, Validation Loss: 2.1532
+Starting Epoch 16
+Batch 0/88, Loss: 1.6226
+Batch 50/88, Loss: 1.7151
+Epoch 16 - Training Loss: 1.7151, Validation Loss: 1.9834
+Starting Epoch 17
+Batch 0/88, Loss: 1.6511
+Batch 50/88, Loss: 1.7427
+Epoch 17 - Training Loss: 1.6597, Validation Loss: 2.0739
+Starting Epoch 18
+Batch 0/88, Loss: 1.5443
+Batch 50/88, Loss: 1.6915
+Epoch 18 - Training Loss: 1.6051, Validation Loss: 1.9062
+Starting Epoch 19
+Batch 0/88, Loss: 1.5636
+Batch 50/88, Loss: 1.5576
+Epoch 19 - Training Loss: 1.5595, Validation Loss: 1.8111
+Starting Epoch 20
+Batch 0/88, Loss: 1.6099
+Batch 50/88, Loss: 1.6348
+Epoch 20 - Training Loss: 1.5124, Validation Loss: 1.8414
+Starting Epoch 21
+Batch 0/88, Loss: 1.4739
+Batch 50/88, Loss: 1.5969
+Epoch 21 - Training Loss: 1.4634, Validation Loss: 1.7988
+Starting Epoch 22
+Batch 0/88, Loss: 1.4019
+Batch 50/88, Loss: 1.2986
+Epoch 22 - Training Loss: 1.4078, Validation Loss: 1.7724
+Starting Epoch 23
+Batch 0/88, Loss: 1.3256
+Batch 50/88, Loss: 1.3305
+Epoch 23 - Training Loss: 1.3691, Validation Loss: 1.7317
+Starting Epoch 24
+Batch 0/88, Loss: 1.3153
+Batch 50/88, Loss: 1.3338
+Epoch 24 - Training Loss: 1.3161, Validation Loss: 1.6725
+Starting Epoch 25
+Batch 0/88, Loss: 1.2684
+Batch 50/88, Loss: 1.3841
+Epoch 25 - Training Loss: 1.2806, Validation Loss: 1.6751
+Starting Epoch 26
+Batch 0/88, Loss: 1.2576
+Batch 50/88, Loss: 1.1906
+Epoch 26 - Training Loss: 1.2378, Validation Loss: 1.6361
+Starting Epoch 27
+Batch 0/88, Loss: 1.2181
+Batch 50/88, Loss: 1.2390
+Epoch 27 - Training Loss: 1.2042, Validation Loss: 1.6361
+Starting Epoch 28
+Batch 0/88, Loss: 1.2116
+Batch 50/88, Loss: 1.2226
+Epoch 28 - Training Loss: 1.1667, Validation Loss: 1.6210
+Starting Epoch 29
+Batch 0/88, Loss: 1.1006
+Batch 50/88, Loss: 1.1771
+Epoch 29 - Training Loss: 1.1384, Validation Loss: 1.5980
+Starting Epoch 30
+Batch 0/88, Loss: 1.0448
+Batch 50/88, Loss: 1.1713
+Epoch 30 - Training Loss: 1.1206, Validation Loss: 1.5983
+Starting Epoch 31
+Batch 0/88, Loss: 1.1438
+Batch 50/88, Loss: 1.0671
+Epoch 31 - Training Loss: 1.1008, Validation Loss: 1.5894
+Starting Epoch 32
+Batch 0/88, Loss: 1.0694
+Batch 50/88, Loss: 1.0949
+Epoch 32 - Training Loss: 1.0884, Validation Loss: 1.5923
+Starting Epoch 33
+Batch 0/88, Loss: 1.0936
+Batch 50/88, Loss: 1.0726
+Epoch 33 - Training Loss: 1.0881, Validation Loss: 1.5920
+
+---
+loss:          1.589365
+training_seconds: 193.3
+total_seconds:    196.8
+peak_vram_mb:     5482.5
+num_steps:        2904
+num_params_M:     0.5
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/88, Loss: 4.7114
+Batch 50/88, Loss: 4.2465
+Epoch 1 - Training Loss: 4.3348, Validation Loss: 4.0079
+Starting Epoch 2
+Batch 0/88, Loss: 3.9555
+Batch 50/88, Loss: 3.7705
+Epoch 2 - Training Loss: 3.8064, Validation Loss: 3.6797
+Starting Epoch 3
+Batch 0/88, Loss: 3.5122
+Batch 50/88, Loss: 3.4208
+Epoch 3 - Training Loss: 3.4044, Validation Loss: 3.4134
+Starting Epoch 4
+Batch 0/88, Loss: 3.1425
+Batch 50/88, Loss: 3.1418
+Epoch 4 - Training Loss: 3.0934, Validation Loss: 2.9951
+Starting Epoch 5
+Batch 0/88, Loss: 3.0054
+Batch 50/88, Loss: 2.7713
+Epoch 5 - Training Loss: 2.8339, Validation Loss: 3.3538
+Starting Epoch 6
+Batch 0/88, Loss: 2.6797
+Batch 50/88, Loss: 2.5856
+Epoch 6 - Training Loss: 2.6074, Validation Loss: 2.8643
+Starting Epoch 7
+Batch 0/88, Loss: 2.4218
+Batch 50/88, Loss: 2.3836
+Epoch 7 - Training Loss: 2.4325, Validation Loss: 3.2318
+Starting Epoch 8
+Batch 0/88, Loss: 2.3572
+Batch 50/88, Loss: 2.3472
+Epoch 8 - Training Loss: 2.2992, Validation Loss: 2.6591
+Starting Epoch 9
+Batch 0/88, Loss: 2.2202
+Batch 50/88, Loss: 2.1282
+Epoch 9 - Training Loss: 2.1708, Validation Loss: 2.4065
+Starting Epoch 10
+Batch 0/88, Loss: 2.2164
+Batch 50/88, Loss: 2.0283
+Epoch 10 - Training Loss: 2.0546, Validation Loss: 2.3598
+Starting Epoch 11
+Batch 0/88, Loss: 1.9454
+Batch 50/88, Loss: 2.1693
+Epoch 11 - Training Loss: 1.9483, Validation Loss: 2.5297
+Starting Epoch 12
+Batch 0/88, Loss: 1.7360
+Batch 50/88, Loss: 1.9432
+Epoch 12 - Training Loss: 1.8521, Validation Loss: 2.4552
+Starting Epoch 13
+Batch 0/88, Loss: 1.6808
+Batch 50/88, Loss: 1.7892
+Epoch 13 - Training Loss: 1.7676, Validation Loss: 2.0918
+Starting Epoch 14
+Batch 0/88, Loss: 1.8392
+Batch 50/88, Loss: 1.7666
+Epoch 14 - Training Loss: 1.7023, Validation Loss: 2.0206
+Starting Epoch 15
+Batch 0/88, Loss: 1.6495
+Batch 50/88, Loss: 1.5713
+Epoch 15 - Training Loss: 1.6279, Validation Loss: 1.8057
+Starting Epoch 16
+Batch 0/88, Loss: 1.6103
+Batch 50/88, Loss: 1.5112
+Epoch 16 - Training Loss: 1.5600, Validation Loss: 1.9844
+Starting Epoch 17
+Batch 0/88, Loss: 1.5057
+Batch 50/88, Loss: 1.5345
+Epoch 17 - Training Loss: 1.5045, Validation Loss: 1.8475
+Starting Epoch 18
+Batch 0/88, Loss: 1.4214
+Batch 50/88, Loss: 1.4371
+Epoch 18 - Training Loss: 1.4526, Validation Loss: 1.6578
+Starting Epoch 19
+Batch 0/88, Loss: 1.3230
+Batch 50/88, Loss: 1.4008
+Epoch 19 - Training Loss: 1.4044, Validation Loss: 1.7604
+Starting Epoch 20
+Batch 0/88, Loss: 1.2452
+Batch 50/88, Loss: 1.2430
+Epoch 20 - Training Loss: 1.3526, Validation Loss: 1.6131
+Starting Epoch 21
+Batch 0/88, Loss: 1.2731
+Batch 50/88, Loss: 1.2550
+Epoch 21 - Training Loss: 1.2933, Validation Loss: 1.6172
+Starting Epoch 22
+Batch 0/88, Loss: 1.2141
+Batch 50/88, Loss: 1.3967
+Epoch 22 - Training Loss: 1.2506, Validation Loss: 1.4608
+Starting Epoch 23
+Batch 0/88, Loss: 1.0171
+Batch 50/88, Loss: 1.2252
+Epoch 23 - Training Loss: 1.2032, Validation Loss: 1.5236
+Starting Epoch 24
+Batch 0/88, Loss: 1.2168
+Batch 50/88, Loss: 1.0762
+Epoch 24 - Training Loss: 1.1610, Validation Loss: 1.4493
+Starting Epoch 25
+Batch 0/88, Loss: 1.1229
+Batch 50/88, Loss: 1.0850
+Epoch 25 - Training Loss: 1.1095, Validation Loss: 1.4329
+Starting Epoch 26
+Batch 0/88, Loss: 1.1054
+Batch 50/88, Loss: 1.0810
+Epoch 26 - Training Loss: 1.0651, Validation Loss: 1.3899
+Starting Epoch 27
+Batch 0/88, Loss: 0.9963
+Batch 50/88, Loss: 0.9592
+Epoch 27 - Training Loss: 1.0177, Validation Loss: 1.3491
+Starting Epoch 28
+Batch 0/88, Loss: 0.9867
+Batch 50/88, Loss: 1.0201
+Epoch 28 - Training Loss: 0.9919, Validation Loss: 1.3484
+Starting Epoch 29
+Batch 0/88, Loss: 0.9597
+Batch 50/88, Loss: 0.9199
+Epoch 29 - Training Loss: 0.9625, Validation Loss: 1.3364
+Starting Epoch 30
+Batch 0/88, Loss: 0.8766
+Batch 50/88, Loss: 0.9195
+Epoch 30 - Training Loss: 0.9397, Validation Loss: 1.3266
+Starting Epoch 31
+Batch 0/88, Loss: 0.8537
+Batch 50/88, Loss: 0.9756
+Epoch 31 - Training Loss: 0.9146, Validation Loss: 1.3175
+Starting Epoch 32
+Batch 0/88, Loss: 0.8392
+Batch 50/88, Loss: 0.9254
+Epoch 32 - Training Loss: 0.9131, Validation Loss: 1.3165
+Starting Epoch 33
+Batch 0/88, Loss: 0.9379
+Batch 50/88, Loss: 1.0070
+Epoch 33 - Training Loss: 0.9010, Validation Loss: 1.3155
+
+---
+loss:          1.315534
+training_seconds: 192.2
+total_seconds:    197.0
+peak_vram_mb:     4111.5
+num_steps:        2904
+num_params_M:     0.2
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/88, Loss: 4.7503
+Batch 50/88, Loss: 4.0968
+Epoch 1 - Training Loss: 4.1800, Validation Loss: 3.9076
+Starting Epoch 2
+Batch 0/88, Loss: 3.8479
+Batch 50/88, Loss: 3.7244
+Epoch 2 - Training Loss: 3.6983, Validation Loss: 3.5812
+Starting Epoch 3
+Batch 0/88, Loss: 3.4961
+Batch 50/88, Loss: 3.3253
+Epoch 3 - Training Loss: 3.3722, Validation Loss: 3.3848
+Starting Epoch 4
+Batch 0/88, Loss: 3.2394
+Batch 50/88, Loss: 3.1341
+Epoch 4 - Training Loss: 3.0360, Validation Loss: 3.8546
+Starting Epoch 5
+Batch 0/88, Loss: 2.7907
+Batch 50/88, Loss: 2.6919
+Epoch 5 - Training Loss: 2.7985, Validation Loss: 3.3343
+Starting Epoch 6
+Batch 0/88, Loss: 2.5350
+Batch 50/88, Loss: 2.5348
+Epoch 6 - Training Loss: 2.5750, Validation Loss: 3.6735
+Starting Epoch 7
+Batch 0/88, Loss: 2.4800
+Batch 50/88, Loss: 2.4977
+Epoch 7 - Training Loss: 2.4085, Validation Loss: 2.7191
+Starting Epoch 8
+Batch 0/88, Loss: 2.2260
+Batch 50/88, Loss: 2.1871
+Epoch 8 - Training Loss: 2.2537, Validation Loss: 2.5116
+Starting Epoch 9
+Batch 0/88, Loss: 2.1244
+Batch 50/88, Loss: 2.1701
+Epoch 9 - Training Loss: 2.1193, Validation Loss: 2.8118
+Starting Epoch 10
+Batch 0/88, Loss: 1.8780
+Batch 50/88, Loss: 1.9645
+Epoch 10 - Training Loss: 2.0079, Validation Loss: 2.5838
+Starting Epoch 11
+Batch 0/88, Loss: 1.9113
+Batch 50/88, Loss: 1.9322
+Epoch 11 - Training Loss: 1.9025, Validation Loss: 2.1625
+Starting Epoch 12
+Batch 0/88, Loss: 1.8342
+Batch 50/88, Loss: 1.6888
+Epoch 12 - Training Loss: 1.8014, Validation Loss: 2.1530
+Starting Epoch 13
+Batch 0/88, Loss: 1.6615
+Batch 50/88, Loss: 1.7366
+Epoch 13 - Training Loss: 1.7321, Validation Loss: 1.8910
+Starting Epoch 14
+Batch 0/88, Loss: 1.6646
+Batch 50/88, Loss: 1.7053
+Epoch 14 - Training Loss: 1.6451, Validation Loss: 2.1515
+Starting Epoch 15
+Batch 0/88, Loss: 1.4682
+Batch 50/88, Loss: 1.6449
+Epoch 15 - Training Loss: 1.5914, Validation Loss: 2.0783
+Starting Epoch 16
+Batch 0/88, Loss: 1.4571
+Batch 50/88, Loss: 1.4798
+Epoch 16 - Training Loss: 1.5185, Validation Loss: 1.9205
+Starting Epoch 17
+Batch 0/88, Loss: 1.4642
+Batch 50/88, Loss: 1.4150
+Epoch 17 - Training Loss: 1.4547, Validation Loss: 1.8165
+Starting Epoch 18
+Batch 0/88, Loss: 1.2442
+Batch 50/88, Loss: 1.5341
+Epoch 18 - Training Loss: 1.4005, Validation Loss: 1.7989
+Starting Epoch 19
+Batch 0/88, Loss: 1.3397
+Batch 50/88, Loss: 1.2899
+Epoch 19 - Training Loss: 1.3233, Validation Loss: 1.8046
+Starting Epoch 20
+Batch 0/88, Loss: 1.3518
+Batch 50/88, Loss: 1.2218
+Epoch 20 - Training Loss: 1.2742, Validation Loss: 1.6884
+Starting Epoch 21
+Batch 0/88, Loss: 1.2329
+Batch 50/88, Loss: 1.2855
+Epoch 21 - Training Loss: 1.2054, Validation Loss: 1.6347
+Starting Epoch 22
+Batch 0/88, Loss: 1.1567
+Batch 50/88, Loss: 1.2535
+Epoch 22 - Training Loss: 1.1530, Validation Loss: 1.5720
+Starting Epoch 23
+Batch 0/88, Loss: 0.9875
+Batch 50/88, Loss: 1.0186
+Epoch 23 - Training Loss: 1.0709, Validation Loss: 1.7089
+Starting Epoch 24
+Batch 0/88, Loss: 0.9450
+Batch 50/88, Loss: 1.0351
+Epoch 24 - Training Loss: 1.0199, Validation Loss: 1.4800
+Starting Epoch 25
+Batch 0/88, Loss: 0.9837
+Batch 50/88, Loss: 0.9067
+Epoch 25 - Training Loss: 0.9479, Validation Loss: 1.4130
+Starting Epoch 26
+Batch 0/88, Loss: 0.8768
+Batch 50/88, Loss: 0.8364
+Epoch 26 - Training Loss: 0.8869, Validation Loss: 1.3597
+Starting Epoch 27
+Batch 0/88, Loss: 0.7450
+Batch 50/88, Loss: 0.8605
+Epoch 27 - Training Loss: 0.8170, Validation Loss: 1.3179
+Starting Epoch 28
+Batch 0/88, Loss: 0.7289
+Batch 50/88, Loss: 0.6157
+Epoch 28 - Training Loss: 0.7636, Validation Loss: 1.3638
+Starting Epoch 29
+Batch 0/88, Loss: 0.6983
+Batch 50/88, Loss: 0.6690
+Epoch 29 - Training Loss: 0.7032, Validation Loss: 1.2809
+Starting Epoch 30
+Batch 0/88, Loss: 0.6986
+Batch 50/88, Loss: 0.6588
+Epoch 30 - Training Loss: 0.6551, Validation Loss: 1.2457
+Starting Epoch 31
+Batch 0/88, Loss: 0.6372
+Batch 50/88, Loss: 0.6086
+Epoch 31 - Training Loss: 0.6183, Validation Loss: 1.2481
+Starting Epoch 32
+Batch 0/88, Loss: 0.6165
+Batch 50/88, Loss: 0.5029
+Epoch 32 - Training Loss: 0.6037, Validation Loss: 1.2376
+Starting Epoch 33
+Batch 0/88, Loss: 0.5937
+Batch 50/88, Loss: 0.4735
+Epoch 33 - Training Loss: 0.5896, Validation Loss: 1.2404
+
+---
+loss:          1.237612
+training_seconds: 196.3
+total_seconds:    200.6
+peak_vram_mb:     5482.5
+num_steps:        2904
+num_params_M:     0.5
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Traceback (most recent call last):
+  File "/workspace/autoresearch/train.py", line 181, in <module>
+    model = ResNeXtCIFAR(cardinality=16, width=8, num_classes=100).to(device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/autoresearch/train.py", line 66, in __init__
+    self.stage1 = self._make_stage(64, 64, width, cardinality, 3, stride=1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/autoresearch/train.py", line 83, in _make_stage
+    layers.append(ResNeXtModule(in_channels, out_channels, reduce_channels, 
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/autoresearch/train.py", line 20, in __init__
+    assert reduce_channel % cardinality == 0, \
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: bottleneck_channels (8) must be divisible by cardinality (16)
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/88, Loss: 4.7194
+Batch 50/88, Loss: 4.2416
+Epoch 1 - Training Loss: 4.3008, Validation Loss: 4.0474
+Starting Epoch 2
+Batch 0/88, Loss: 3.9893
+Batch 50/88, Loss: 3.9041
+Epoch 2 - Training Loss: 3.8211, Validation Loss: 3.6438
+Starting Epoch 3
+Batch 0/88, Loss: 3.5609
+Batch 50/88, Loss: 3.3977
+Epoch 3 - Training Loss: 3.4989, Validation Loss: 3.5833
+Starting Epoch 4
+Batch 0/88, Loss: 3.2714
+Batch 50/88, Loss: 3.3146
+Epoch 4 - Training Loss: 3.1862, Validation Loss: 3.6128
+Starting Epoch 5
+Batch 0/88, Loss: 3.1142
+Batch 50/88, Loss: 2.9701
+Epoch 5 - Training Loss: 2.9396, Validation Loss: 3.0169
+Starting Epoch 6
+Batch 0/88, Loss: 2.7008
+Batch 50/88, Loss: 2.7297
+Epoch 6 - Training Loss: 2.6860, Validation Loss: 2.8539
+Starting Epoch 7
+Batch 0/88, Loss: 2.5503
+Batch 50/88, Loss: 2.5518
+Epoch 7 - Training Loss: 2.5015, Validation Loss: 2.9130
+Starting Epoch 8
+Batch 0/88, Loss: 2.4207
+Batch 50/88, Loss: 2.2688
+Epoch 8 - Training Loss: 2.3155, Validation Loss: 2.7036
+Starting Epoch 9
+Batch 0/88, Loss: 2.2327
+Batch 50/88, Loss: 2.0861
+Epoch 9 - Training Loss: 2.1828, Validation Loss: 2.6704
+Starting Epoch 10
+Batch 0/88, Loss: 1.9924
+Batch 50/88, Loss: 2.1016
+Epoch 10 - Training Loss: 2.0616, Validation Loss: 2.9072
+Starting Epoch 11
+Batch 0/88, Loss: 2.0169
+Batch 50/88, Loss: 1.8983
+Epoch 11 - Training Loss: 1.9420, Validation Loss: 2.2453
+Starting Epoch 12
+Batch 0/88, Loss: 1.7929
+Batch 50/88, Loss: 1.6994
+Epoch 12 - Training Loss: 1.8474, Validation Loss: 2.1799
+Starting Epoch 13
+Batch 0/88, Loss: 1.7358
+Batch 50/88, Loss: 1.7750
+Epoch 13 - Training Loss: 1.7602, Validation Loss: 2.3519
+Starting Epoch 14
+Batch 0/88, Loss: 1.7034
+Batch 50/88, Loss: 1.8163
+Epoch 14 - Training Loss: 1.6899, Validation Loss: 1.9204
+Starting Epoch 15
+Batch 0/88, Loss: 1.6855
+Batch 50/88, Loss: 1.7448
+Epoch 15 - Training Loss: 1.6276, Validation Loss: 1.8090
+Starting Epoch 16
+Batch 0/88, Loss: 1.5863
+Batch 50/88, Loss: 1.5278
+Epoch 16 - Training Loss: 1.5573, Validation Loss: 2.0124
+Starting Epoch 17
+Batch 0/88, Loss: 1.4453
+Batch 50/88, Loss: 1.5648
+Epoch 17 - Training Loss: 1.4999, Validation Loss: 1.7630
+Starting Epoch 18
+Batch 0/88, Loss: 1.4072
+Batch 50/88, Loss: 1.3714
+Epoch 18 - Training Loss: 1.4535, Validation Loss: 1.8818
+Starting Epoch 19
+Batch 0/88, Loss: 1.3512
+Batch 50/88, Loss: 1.3238
+Epoch 19 - Training Loss: 1.3999, Validation Loss: 1.9972
+Starting Epoch 20
+Batch 0/88, Loss: 1.3399
+Batch 50/88, Loss: 1.4399
+Epoch 20 - Training Loss: 1.3478, Validation Loss: 1.6676
+Starting Epoch 21
+Batch 0/88, Loss: 1.3147
+Batch 50/88, Loss: 1.2949
+Epoch 21 - Training Loss: 1.2949, Validation Loss: 1.7097
+Starting Epoch 22
+Batch 0/88, Loss: 1.2518
+Batch 50/88, Loss: 1.2380
+Epoch 22 - Training Loss: 1.2409, Validation Loss: 1.6178
+Starting Epoch 23
+Batch 0/88, Loss: 1.1575
+Batch 50/88, Loss: 1.2461
+Epoch 23 - Training Loss: 1.2030, Validation Loss: 1.5363
+Starting Epoch 24
+Batch 0/88, Loss: 1.0482
+Batch 50/88, Loss: 1.1595
+Epoch 24 - Training Loss: 1.1530, Validation Loss: 1.5039
+Starting Epoch 25
+Batch 0/88, Loss: 1.0864
+Batch 50/88, Loss: 1.0681
+Epoch 25 - Training Loss: 1.1157, Validation Loss: 1.4403
+Starting Epoch 26
+Batch 0/88, Loss: 1.1510
+Batch 50/88, Loss: 1.0425
+Epoch 26 - Training Loss: 1.0635, Validation Loss: 1.4795
+Starting Epoch 27
+Batch 0/88, Loss: 1.0818
+Batch 50/88, Loss: 1.0727
+Epoch 27 - Training Loss: 1.0254, Validation Loss: 1.4114
+Starting Epoch 28
+Batch 0/88, Loss: 0.9670
+Batch 50/88, Loss: 1.0769
+Epoch 28 - Training Loss: 0.9877, Validation Loss: 1.3959
+Starting Epoch 29
+Batch 0/88, Loss: 0.9488
+Batch 50/88, Loss: 1.0108
+Epoch 29 - Training Loss: 0.9682, Validation Loss: 1.3460
+Starting Epoch 30
+Batch 0/88, Loss: 0.9921
+Batch 50/88, Loss: 1.0359
+Epoch 30 - Training Loss: 0.9383, Validation Loss: 1.3476
+Starting Epoch 31
+Batch 0/88, Loss: 0.9442
+Batch 50/88, Loss: 0.9199
+Epoch 31 - Training Loss: 0.9185, Validation Loss: 1.3398
+Starting Epoch 32
+Batch 0/88, Loss: 0.8966
+Batch 50/88, Loss: 0.9280
+Epoch 32 - Training Loss: 0.9109, Validation Loss: 1.3357
+Starting Epoch 33
+Batch 0/88, Loss: 0.8532
+Batch 50/88, Loss: 0.8486
+Epoch 33 - Training Loss: 0.9045, Validation Loss: 1.3359
+
+---
+loss:          1.335716
+training_seconds: 193.1
+total_seconds:    196.7
+peak_vram_mb:     4111.5
+num_steps:        2904
+num_params_M:     0.2
+Using device: cuda
+GPU Memory: 25.3 GB
+Files already downloaded and verified
+Starting Epoch 1
+Batch 0/176, Loss: 4.7033
+Batch 50/176, Loss: 4.4331
+Batch 100/176, Loss: 4.1771
+Batch 150/176, Loss: 4.0536
+Epoch 1 - Training Loss: 4.2832, Validation Loss: 3.9218
+Starting Epoch 2
+Batch 0/176, Loss: 3.9459
+Batch 50/176, Loss: 3.8026
+Batch 100/176, Loss: 3.7694
+Batch 150/176, Loss: 3.6052
+Epoch 2 - Training Loss: 3.7718, Validation Loss: 3.5397
+Starting Epoch 3
+Batch 0/176, Loss: 3.6381
+Batch 50/176, Loss: 3.5414
+Batch 100/176, Loss: 3.6104
+Batch 150/176, Loss: 3.4170
+Epoch 3 - Training Loss: 3.4106, Validation Loss: 3.2736
+Starting Epoch 4
+Batch 0/176, Loss: 3.1530
+Batch 50/176, Loss: 3.1067
+Batch 100/176, Loss: 3.1940
+Batch 150/176, Loss: 2.9409
+Epoch 4 - Training Loss: 3.0825, Validation Loss: 3.0572
+Starting Epoch 5
+Batch 0/176, Loss: 2.9807
+Batch 50/176, Loss: 2.7801
+Batch 100/176, Loss: 2.6732
+Batch 150/176, Loss: 2.6510
+Epoch 5 - Training Loss: 2.8103, Validation Loss: 2.8554
+Starting Epoch 6
+Batch 0/176, Loss: 2.8166
+Batch 50/176, Loss: 2.6044
+Batch 100/176, Loss: 2.6189
+Batch 150/176, Loss: 2.5418
+Epoch 6 - Training Loss: 2.5927, Validation Loss: 3.3192
+Starting Epoch 7
+Batch 0/176, Loss: 2.5104
+Batch 50/176, Loss: 2.5012
+Batch 100/176, Loss: 2.3312
+Batch 150/176, Loss: 2.4439
+Epoch 7 - Training Loss: 2.4249, Validation Loss: 2.7500
+Starting Epoch 8
+Batch 0/176, Loss: 2.3106
+Batch 50/176, Loss: 2.1047
+Batch 100/176, Loss: 2.2593
+Batch 150/176, Loss: 2.0674
+Epoch 8 - Training Loss: 2.2721, Validation Loss: 2.3993
+Starting Epoch 9
+Batch 0/176, Loss: 2.0518
+Batch 50/176, Loss: 1.9840
+Batch 100/176, Loss: 2.2109
+Batch 150/176, Loss: 2.0126
+Epoch 9 - Training Loss: 2.1412, Validation Loss: 2.3669
+Starting Epoch 10
+Batch 0/176, Loss: 2.1674
+Batch 50/176, Loss: 1.9509
+Batch 100/176, Loss: 1.8525
+Batch 150/176, Loss: 2.0432
+Epoch 10 - Training Loss: 2.0234, Validation Loss: 2.1463
+Starting Epoch 11
+Batch 0/176, Loss: 1.9625
+Batch 50/176, Loss: 2.0460
+Batch 100/176, Loss: 1.7816
+Batch 150/176, Loss: 1.8147
+Epoch 11 - Training Loss: 1.9171, Validation Loss: 2.0521
+Starting Epoch 12
+Batch 0/176, Loss: 1.8026
+Batch 50/176, Loss: 1.7998
+Batch 100/176, Loss: 1.9078
+Batch 150/176, Loss: 2.0399
+Epoch 12 - Training Loss: 1.8194, Validation Loss: 2.0721
+Starting Epoch 13
+Batch 0/176, Loss: 1.7369
+Batch 50/176, Loss: 1.8094
+Batch 100/176, Loss: 1.7625
+Batch 150/176, Loss: 1.7520
+Epoch 13 - Training Loss: 1.7435, Validation Loss: 1.8463
+Starting Epoch 14
+Batch 0/176, Loss: 1.7786
+Batch 50/176, Loss: 1.6149
+Batch 100/176, Loss: 1.5992
+Batch 150/176, Loss: 1.6168
+Epoch 14 - Training Loss: 1.6749, Validation Loss: 2.0650
+Starting Epoch 15
+Batch 0/176, Loss: 1.6024
+Batch 50/176, Loss: 1.6175
+Batch 100/176, Loss: 1.7133
+Batch 150/176, Loss: 1.6709
+Epoch 15 - Training Loss: 1.6089, Validation Loss: 1.9103
+Starting Epoch 16
+Batch 0/176, Loss: 1.6386
+Batch 50/176, Loss: 1.7482
+Batch 100/176, Loss: 1.5301
+Batch 150/176, Loss: 1.4105
+Epoch 16 - Training Loss: 1.5540, Validation Loss: 1.8132
+Starting Epoch 17
+Batch 0/176, Loss: 1.5618
+Batch 50/176, Loss: 1.3263
+Batch 100/176, Loss: 1.4347
+Batch 150/176, Loss: 1.5143
+Epoch 17 - Training Loss: 1.4818, Validation Loss: 1.7737
+Starting Epoch 18
+Batch 0/176, Loss: 1.4753
+Batch 50/176, Loss: 1.4915
+Batch 100/176, Loss: 1.1869
+Batch 150/176, Loss: 1.5642
+Epoch 18 - Training Loss: 1.4308, Validation Loss: 1.7818
+Starting Epoch 19
+Batch 0/176, Loss: 1.3719
+Batch 50/176, Loss: 1.4926
+Batch 100/176, Loss: 1.2609
+Batch 150/176, Loss: 1.5354
+Epoch 19 - Training Loss: 1.3830, Validation Loss: 1.6271
+Starting Epoch 20
+Batch 0/176, Loss: 1.2158
+Batch 50/176, Loss: 1.2871
+Batch 100/176, Loss: 1.4101
+Batch 150/176, Loss: 1.4224
+Epoch 20 - Training Loss: 1.3310, Validation Loss: 1.5629
+Starting Epoch 21
+Batch 0/176, Loss: 1.2786
+Batch 50/176, Loss: 1.2855
+Batch 100/176, Loss: 1.1390
+Batch 150/176, Loss: 1.3129
+Epoch 21 - Training Loss: 1.2659, Validation Loss: 1.5745
+Starting Epoch 22
+Batch 0/176, Loss: 1.0818
+Batch 50/176, Loss: 1.2964
+Batch 100/176, Loss: 1.0483
+Batch 150/176, Loss: 1.3866
+Epoch 22 - Training Loss: 1.2314, Validation Loss: 1.5467
+Starting Epoch 23
+Batch 0/176, Loss: 1.0707
+Batch 50/176, Loss: 1.0945
+Batch 100/176, Loss: 1.2189
+Batch 150/176, Loss: 1.1474
+Epoch 23 - Training Loss: 1.1786, Validation Loss: 1.4690
+Starting Epoch 24
+Batch 0/176, Loss: 1.2652
+Batch 50/176, Loss: 1.2318
+Batch 100/176, Loss: 1.1944
+Batch 150/176, Loss: 1.0618
+Epoch 24 - Training Loss: 1.1339, Validation Loss: 1.4624
+Starting Epoch 25
+Batch 0/176, Loss: 1.2457
+Batch 50/176, Loss: 1.1974
+Batch 100/176, Loss: 1.1311
+Batch 150/176, Loss: 1.1883
+Epoch 25 - Training Loss: 1.0897, Validation Loss: 1.4441
+Starting Epoch 26
+Batch 0/176, Loss: 0.9411
+Batch 50/176, Loss: 1.0583
+Batch 100/176, Loss: 1.2140
+Batch 150/176, Loss: 0.9779
+Epoch 26 - Training Loss: 1.0396, Validation Loss: 1.4131
+Starting Epoch 27
+Batch 0/176, Loss: 0.9003
+Batch 50/176, Loss: 1.0151
+Batch 100/176, Loss: 0.9672
+Batch 150/176, Loss: 1.1123
+Epoch 27 - Training Loss: 1.0029, Validation Loss: 1.3701
+Starting Epoch 28
+Batch 0/176, Loss: 0.8878
+Batch 50/176, Loss: 1.1289
+Batch 100/176, Loss: 1.0393
+Batch 150/176, Loss: 1.0310
+Epoch 28 - Training Loss: 0.9685, Validation Loss: 1.3724
+Starting Epoch 29
+Batch 0/176, Loss: 0.9126
+Batch 50/176, Loss: 0.9884
+Batch 100/176, Loss: 1.0369
+Batch 150/176, Loss: 0.9493
+Epoch 29 - Training Loss: 0.9313, Validation Loss: 1.3551
+Starting Epoch 30
+Batch 0/176, Loss: 0.8845
+Batch 50/176, Loss: 0.8483
+Batch 100/176, Loss: 0.9082
+Batch 150/176, Loss: 0.9191
+Epoch 30 - Training Loss: 0.9110, Validation Loss: 1.3509
+Starting Epoch 31
+Batch 0/176, Loss: 0.9391
+Batch 50/176, Loss: 0.9292
+Batch 100/176, Loss: 0.8005
+Batch 150/176, Loss: 0.8392
+Epoch 31 - Training Loss: 0.8881, Validation Loss: 1.3356
+Starting Epoch 32
+Batch 0/176, Loss: 0.9062
+Batch 50/176, Loss: 0.9128
+Batch 100/176, Loss: 0.9692
+Batch 150/176, Loss: 0.7433
+Epoch 32 - Training Loss: 0.8777, Validation Loss: 1.3363
+Starting Epoch 33
+Batch 0/176, Loss: 0.9628
+Batch 50/176, Loss: 0.8676
+Batch 100/176, Loss: 0.9129
+Batch 150/176, Loss: 0.8338
+Epoch 33 - Training Loss: 0.8764, Validation Loss: 1.3390
+
+---
+loss:          1.335609
+training_seconds: 190.0
+total_seconds:    194.0
+peak_vram_mb:     2065.4
+num_steps:        5808
+num_params_M:     0.2

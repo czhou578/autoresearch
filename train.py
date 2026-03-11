@@ -178,7 +178,7 @@ test_loader = DataLoader(
 
 num_classes = 100
 
-model = ResNeXtCIFAR(cardinality=4, width=32, num_classes=100).to(device)
+model = ResNeXtCIFAR(cardinality=16, width=8, num_classes=100).to(device)
 
 num_epochs = 33
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.0)

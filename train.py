@@ -180,7 +180,7 @@ num_classes = 100
 
 model = ResNeXtCIFAR(cardinality=4, width=32, num_classes=100).to(device)
 
-num_epochs = 40
+num_epochs = 33
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.0)
 base_lr = 4e-3
 

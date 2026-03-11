@@ -8,23 +8,26 @@ class FireModule(nn.Module):
     def __init__(self, in_channels, sqz_out_channels, expand_filters_one, expand_filters_three):
         super().__init__()
 
-        self.squeeze_layers = nn.Conv2d(in_channels, sqz_out_channels, kernel_size=1)
+        self.squeeze_layers = nn.Sequential(
+            nn.Conv2d(in_channels, sqz_out_channels, kernel_size=1, bias=False),
+            nn.BatchNorm2d(sqz_out_channels),
+            nn.ReLU(inplace=True)
+        )
 
         self.expand_ones = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_one, kernel_size=1),
-            nn.ReLU()            
+            nn.Conv2d(sqz_out_channels, expand_filters_one, kernel_size=1, bias=False),
+            nn.BatchNorm2d(expand_filters_one),
+            nn.ReLU(inplace=True)
         )
 
         self.expand_threes = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_three, kernel_size=3, padding=1),
-            nn.ReLU()            
+            nn.Conv2d(sqz_out_channels, expand_filters_three, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(expand_filters_three),
+            nn.ReLU(inplace=True)
         )
-
-        self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.squeeze_layers(x)
-
         return torch.cat([self.expand_ones(x), self.expand_threes(x)], dim=1)
 
 

@@ -94,13 +94,11 @@ train_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # Mild to avoid over-distortion
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.5071, 0.4865, 0.4409], std=[0.2673, 0.2564, 0.2761]),
     transforms.RandomErasing(p=0.7)  # Apply after normalization for consistency
 ])
 
 test_transform = transforms.Compose([
-    transforms.ToTensor(), # Moved ToTensor before Normalize (good practice)
-    transforms.Normalize(mean=[0.5071, 0.4867, 0.4408], std=[0.2675, 0.2565, 0.2761])
+    transforms.ToTensor() # Moved ToTensor before Normalize (good practice)
 ])
 
 # Load raw datasets

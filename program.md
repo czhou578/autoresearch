@@ -20,7 +20,7 @@ Once you get confirmation, kick off the experimentation.
 Each experiment runs on a single GPU. The training script runs for a **fixed time budget of 5 minutes** (wall clock training time, excluding startup/compilation). You launch it simply as: `python train.py`.
 
 **What you CAN do:**
-- Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture, optimizer, hyperparameters, training loop, batch size, model size, etc. Do not edit the Dataloader or the data preparation logic!
+- Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture layers, optimizer, hyperparameters, training loop, batch size, model size, etc. Do not edit the Dataloader or the data preparation logic! In addition, do not throw away the overall model architecture as defined in the comments at the top of the training file. 
 
 **What you CANNOT do:**
 - Install new packages or add dependencies. You can only use what's already in `requirements.txt`.
@@ -89,7 +89,7 @@ LOOP FOREVER:
 1. Look at the git state: the current branch/commit we're on
 2. Tune `train.py` with an experimental idea by directly hacking the code.
 3. git commit
-4. Run the experiment: `python train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context)
+4. Run the experiment: `python train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context). Make sure that the loss obtained after every epoch of a trial run is logged into this file. Do NOT erase the log file contents after each trial. Continuously append the results of each trial to the end of the log file until the experiment is completed or terminated. 
 5. Read out the results: `grep "^loss:" run.log`
 6. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
 7. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
@@ -106,6 +106,6 @@ The idea is that you are a completely autonomous researcher trying things out. I
 
 As an example use case, a user might leave you running while they sleep. If each experiment takes you ~5 minutes then you can run approx 12/hour, for a total of about 100 over the duration of the average human sleep. The user then wakes up to experimental results, all completed by you while they slept!
 
-**Visual**: At the end, plot the number of experiments taken vs the validation loss in a plot similar to the one below: 
+**Visual**: At the end, create a Jupyter Notebook and using matplotlib, plot the number of experiments taken vs the validation loss in a plot similar to the one below using the collected numbers from `results.tsv`: 
 
 ![alt text](sample_plot.png)

@@ -102,7 +102,7 @@ model = CustomResNet().to(device)
 
 lr = 0.05
 batch_size = 256
-epochs = 21
+epochs = 22
 
 train_loader = DataLoader(cifar_train, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)
 val_loader = DataLoader(cifar_val, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)

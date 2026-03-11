@@ -4,66 +4,17 @@ from torch import nn
 from torchvision import transforms, datasets
 from torch.utils.data import Subset
 
-class FireModule(nn.Module):
-    def __init__(self, in_channels, sqz_out_channels, expand_filters_one, expand_filters_three):
-        super().__init__()
+import torchvision.models as models
 
-        self.squeeze_layers = nn.Sequential(
-            nn.Conv2d(in_channels, sqz_out_channels, kernel_size=1, bias=False),
-            nn.BatchNorm2d(sqz_out_channels),
-            nn.ReLU(inplace=True)
-        )
-
-        self.expand_ones = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_one, kernel_size=1, bias=False),
-            nn.BatchNorm2d(expand_filters_one),
-            nn.ReLU(inplace=True)
-        )
-
-        self.expand_threes = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_three, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(expand_filters_three),
-            nn.ReLU(inplace=True)
-        )
-
-    def forward(self, x):
-        x = self.squeeze_layers(x)
-        return torch.cat([self.expand_ones(x), self.expand_threes(x)], dim=1)
-
-
-class SqueezeNet(nn.Module):
+class CustomResNet(nn.Module):
     def __init__(self):
         super().__init__()
-
-        self.layers = nn.Sequential(
-            # nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, stride=2),
-            nn.Conv2d(in_channels=3, out_channels=96, kernel_size=3, stride=1, padding=1),
-
-            nn.ReLU(), # not specified clearly within paper
-            # nn.MaxPool2d(kernel_size=3, stride=2),
-            FireModule(96, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
-            FireModule(128, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
-            FireModule(128, sqz_out_channels=32, expand_filters_one=128, expand_filters_three=128),
-
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
-
-            FireModule(256, sqz_out_channels=32, expand_filters_one=128, expand_filters_three=128),
-            FireModule(256, sqz_out_channels=48, expand_filters_one=192, expand_filters_three=192),
-            FireModule(384, sqz_out_channels=48, expand_filters_one=192, expand_filters_three=192),
-            FireModule(384, sqz_out_channels=64, expand_filters_one=256, expand_filters_three=256),
-
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
-
-            FireModule(512, sqz_out_channels=64, expand_filters_one=256, expand_filters_three=256),
-            # nn.Dropout(0.5),
-            nn.Conv2d(in_channels=512, out_channels=100, kernel_size=1, stride=1),
-            nn.AdaptiveAvgPool2d((1, 1))
-        )
+        self.resnet = models.resnet18(num_classes=100)
+        self.resnet.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+        self.resnet.maxpool = nn.Identity()
     
     def forward(self, x):
-        x = self.layers(x)
-        x = x.view(x.size(0), -1)
-        return x
+        return self.resnet(x)
 
 torch.backends.cudnn.benchmark = True
 torch.backends.cuda.matmul.allow_tf32 = True
@@ -143,7 +94,7 @@ test_loader = DataLoader(
 
 num_classes = 100
 
-model = SqueezeNet().to(device)
+model = CustomResNet().to(device)
 
 lr = 0.001
 batch_size = 256

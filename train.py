@@ -148,7 +148,7 @@ cifar_test = datasets.CIFAR100(root="./data", train=False, transform=test_transf
 
 train_loader = DataLoader(
     cifar_train,
-    batch_size=512,  # Changed from 512
+    batch_size=256,  # Changed from 512
     shuffle=True,
     num_workers=2,
     pin_memory=True,
@@ -158,7 +158,7 @@ train_loader = DataLoader(
 
 val_loader = DataLoader(
     cifar_val,  # Use directly
-    batch_size=512,
+    batch_size=256,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -168,7 +168,7 @@ val_loader = DataLoader(
 
 test_loader = DataLoader(
     cifar_test,
-    batch_size=512,
+    batch_size=256,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -195,7 +195,7 @@ optimizer = torch.optim.AdamW(
 
 scheduler = torch.optim.lr_scheduler.OneCycleLR(
     optimizer,
-    max_lr=1.5e-2,  # Changed from 1e-2
+    max_lr=1e-2,  # Changed from 1.5e-2
     epochs=num_epochs,
     steps_per_epoch=len(train_loader),
     pct_start=0.3,

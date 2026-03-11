@@ -157,7 +157,7 @@ num_classes = 100
 
 model = ResNet50().to(device)
 
-num_epochs = 26
+num_epochs = 45
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
 base_lr = 4e-3
 

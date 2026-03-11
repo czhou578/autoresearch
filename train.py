@@ -63,13 +63,13 @@ class ResNeXtCIFAR(nn.Module):
         )
         
         # Stage 1: 3 blocks, output map size 32×32, width=64
-        self.stage1 = self._make_stage(64, 64, width, cardinality, 3, stride=1)
+        self.stage1 = self._make_stage(64, 64, width, cardinality, 4, stride=1)
         
         # Stage 2: 3 blocks, output map size 16×16, width=128 (2× increase)
-        self.stage2 = self._make_stage(64, 128, width*2, cardinality, 3, stride=2)
+        self.stage2 = self._make_stage(64, 128, width*2, cardinality, 4, stride=2)
         
         # Stage 3: 3 blocks, output map size 8×8, width=256 (2× increase)
-        self.stage3 = self._make_stage(128, 256, width*4, cardinality, 3, stride=2)
+        self.stage3 = self._make_stage(128, 256, width*4, cardinality, 4, stride=2)
         
         # Global average pooling + fully connected
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
@@ -148,7 +148,7 @@ cifar_test = datasets.CIFAR100(root="./data", train=False, transform=test_transf
 
 train_loader = DataLoader(
     cifar_train,
-    batch_size=256,  # Changed from 512
+    batch_size=512,  # Changed from 512
     shuffle=True,
     num_workers=2,
     pin_memory=True,
@@ -158,7 +158,7 @@ train_loader = DataLoader(
 
 val_loader = DataLoader(
     cifar_val,  # Use directly
-    batch_size=256,
+    batch_size=512,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -168,7 +168,7 @@ val_loader = DataLoader(
 
 test_loader = DataLoader(
     cifar_test,
-    batch_size=256,
+    batch_size=512,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -178,7 +178,7 @@ test_loader = DataLoader(
 
 num_classes = 100
 
-model = ResNeXtCIFAR(cardinality=16, width=16, num_classes=100).to(device)
+model = ResNeXtCIFAR(cardinality=4, width=32, num_classes=100).to(device)
 
 num_epochs = 33
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.0)
@@ -190,12 +190,12 @@ scaled_lr = base_lr * batch_scale**0.5  # Square root scaling
 optimizer = torch.optim.AdamW(
     model.parameters(),
     lr=3e-3,  # Changed from 1e-3
-    weight_decay=5e-3  # High weight decay
+    weight_decay=1e-3
 )
 
 scheduler = torch.optim.lr_scheduler.OneCycleLR(
     optimizer,
-    max_lr=1e-2,  # Changed from 1.5e-2
+    max_lr=1.5e-2,  # Changed from 1e-2
     epochs=num_epochs,
     steps_per_epoch=len(train_loader),
     pct_start=0.3,

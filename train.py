@@ -15,15 +15,15 @@ class BottleNeckBlock(nn.Module):
         self.layers = nn.Sequential(OrderedDict([
             ('conv1_1', nn.Conv2d(in_channels, out_channel // 4, kernel_size=(1, 1))),
             ('bn1_1', nn.BatchNorm2d(out_channel // 4)),
-            ('relu1_1', nn.ReLU()),
+            ('relu1_1', nn.GELU()),
             ('conv1_2',  nn.Conv2d(out_channel // 4, out_channel // 4, kernel_size=(3, 3), stride=stride, padding=1)),
             ('bn1_2', nn.BatchNorm2d(out_channel // 4)),
-            ('relu1_2', nn.ReLU()),
+            ('relu1_2', nn.GELU()),
             ('conv1_3', nn.Conv2d(out_channel // 4, out_channel, kernel_size=(1, 1))),
             ('bn1_3', nn.BatchNorm2d(out_channel)),
 
         ]))
-        self.last_relu = nn.ReLU()
+        self.last_relu = nn.GELU()
         if stride != 1 or in_channels != out_channel:
             self.shortcut = nn.Sequential(OrderedDict([
                 ('sho_conv_1', nn.Conv2d(in_channels, out_channel, kernel_size=(1, 1), stride=stride)),
@@ -43,7 +43,7 @@ class ResNet50(nn.Module):
         self.layers = nn.Sequential(OrderedDict([
             ('conv1_1', nn.Conv2d(3, 64, kernel_size=(3, 3), stride=2)),
             ('bn1_1', nn.BatchNorm2d(64)),
-            ('relu1_1', nn.ReLU()),
+            ('relu1_1', nn.GELU()),
             ('block1', BottleNeckBlock(in_channels=64, out_channel=256)),
             ('block2', BottleNeckBlock(in_channels=256, out_channel=256)),
             ('block3', BottleNeckBlock(in_channels=256, out_channel=256)),

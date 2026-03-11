@@ -106,7 +106,7 @@ epochs = 21
 
 train_loader = DataLoader(cifar_train, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)
 val_loader = DataLoader(cifar_val, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)
-loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
+loss_function = nn.CrossEntropyLoss(label_smoothing=0.0)
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-2)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr * 3, epochs=epochs, steps_per_epoch=len(train_loader), pct_start=0.3, anneal_strategy='cos', div_factor=25.0, final_div_factor=1000.0)
 import time

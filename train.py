@@ -151,10 +151,17 @@ val_loader = DataLoader(cifar_val, batch_size=batch_size, shuffle=False, num_wor
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr * 3, epochs=epochs, steps_per_epoch=len(train_loader), pct_start=0.3, anneal_strategy='cos', div_factor=25.0, final_div_factor=1000.0)
+import time
+
+start_time = time.time()
 best_val_loss = float('inf')
+num_steps = 0
+
 for epoch in range(epochs):
     model.train()
     for inputs, targets in train_loader:
+        if time.time() - start_time > 300:
+            break
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad(set_to_none=True)
         outputs = model(inputs)
@@ -163,6 +170,8 @@ for epoch in range(epochs):
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
+        num_steps += 1
+    
     model.eval()
     val_loss = 0.0
     val_batches = 0
@@ -177,4 +186,18 @@ for epoch in range(epochs):
     if avg_val_loss < best_val_loss:
         best_val_loss = avg_val_loss
         torch.save(model.state_dict(), 'best_squeezenet.pth')
-print(f'FINAL_VAL_LOSS: {best_val_loss:.6f}')
+    
+    if time.time() - start_time > 300:
+        break
+
+total_seconds = time.time() - start_time
+peak_vram_mb = torch.cuda.max_memory_allocated() / (1024 * 1024) if torch.cuda.is_available() else 0.0
+num_params_M = sum(p.numel() for p in model.parameters()) / 1e6
+
+print("---")
+print(f"loss:             {best_val_loss:.6f}")
+print(f"training_seconds: {total_seconds:.1f}")
+print(f"total_seconds:    {total_seconds:.1f}")
+print(f"peak_vram_mb:     {peak_vram_mb:.1f}")
+print(f"num_steps:        {num_steps}")
+print(f"num_params_M:     {num_params_M:.2f}")

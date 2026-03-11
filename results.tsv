@@ -1,0 +1,26 @@
+commit	loss	memory_gb	status	description
+8789f42	1.836339	6.0	keep	baseline
+e4aebb6	1.269070	3.8	keep	cardinality 4 width 32, label smoothing 0.0, max_lr 1.5e-2
+f0e1136	1.300190	7.6	discard	batch_size 1024, max_lr 2e-2
+423217b	1.277093	6.1	discard	cardinality 2 width 64
+41fdb79	1.251534	3.8	keep	weight decay 1e-3
+55423d5	1.435687	3.8	discard	remove ColorJitter and RandomErasing
+a8d1478	1.250736	3.8	keep	num_epochs 33
+8433970	1.212178	5.4	keep	replace ReLU with GELU
+aa75e9f	1.236824	5.4	discard	Add Dropout p=0.1
+a38743f	1.255651	5.4	discard	Tune OneCycleLR pct_start 0.1 div 100
+06233bd	1.255651	5.4	discard	Switch GELU to SiLU
+28cf12e	1.262450	5.4	discard	max_lr 2e-2
+64061ac	1.223005	5.4	discard	max_lr 1e-2
+dce5d58	1.216545	5.4	discard	weight_decay 5e-3
+ec15e12	1.589365	5.4	discard	label_smoothing=0.05
+d1ba634	1.315534	4.1	discard	cardinality 8 width 16
+fe70de2	1.237612	5.4	discard	pct_start 0.5
+59065b3	1.335716	4.1	discard	cardinality 16 width 16
+8d22485	1.335609	2.1	discard	batch_size 256, max_lr 1e-2
+38c443d	1.315409	2.1	discard	weight_decay=5e-3 (user manual)
+f56c8cb	1.444770	5.4	discard	pct_start=0.0
+80ae993	1.240031	2.0	discard	SGD max_lr=0.5
+cdb98d1	1.323047	5.4	discard	num_epochs 45
+5fafd10	1.298580	5.4	discard	RandomRotation 15
+a17065a	1.209954	6.8	keep	4 blocks per stage

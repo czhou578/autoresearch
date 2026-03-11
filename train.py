@@ -167,7 +167,7 @@ scaled_lr = base_lr * batch_scale**0.5  # Square root scaling
 optimizer = torch.optim.AdamW(
     model.parameters(),
     lr=1e-3,  # Changed from 1e-3
-    weight_decay=1e-4
+    weight_decay=1e-3
 )
 
 scheduler = torch.optim.lr_scheduler.OneCycleLR(

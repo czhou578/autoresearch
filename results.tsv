@@ -1,0 +1,20 @@
+commit	loss	memory_gb	status	description
+66fd611	3.240392	2.9	keep	baseline
+bf9785b	2.558862	2.9	keep	increase epochs to 19 to fill 5min budget
+dab220c	2.071274	3.9	keep	add batchnorm and fix missing relu in fire module
+3e87546	1.707780	3.4	keep	replace squeezenet with resnet18
+e2c4701	1.739939	5.6	discard	tune lr to 0.002, bs to 512, epochs to 28
+c11c6c8	1.699065	3.4	keep	tune weight_decay to 1e-2 and set epochs to 21
+4a4d1ff	1.716217	3.4	discard	remove heavy data augmentation and set epochs to 23
+3775857	1.730830	3.4	discard	push epochs to 23
+98d24b0	1.688607	3.4	keep	add dropout 0.3 before fc
+a3cb512	1.085874	3.4	keep	remove label smoothing
+0bdba76	1.108592	3.4	discard	increase lr to 0.003
+93e2968	1.043834	3.4	keep	switch to SGD optimizer with lr 0.05
+4fa6ba7	1.471658	5.6	discard	set bs=512, lr=0.1, epochs=27
+79c5975	1.048786	3.4	discard	set lr=0.08 and wd=1e-4
+ad5fe11	1.017091	3.4	keep	set epochs=22
+ba515c9	1.016139	3.4	keep	enable nesterov momentum
+baf93c2	1.825600	4.2	discard	upgrade to resnet34 with epochs 14
+df49e0e	1.072182	3.3	discard	add 512 hidden layer to FC
+60de521	1.105018	3.3	discard	tune pct_start to 0.3

@@ -12,6 +12,10 @@ class CustomResNet(nn.Module):
         self.resnet = models.resnet18(num_classes=100)
         self.resnet.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
         self.resnet.maxpool = nn.Identity()
+        self.resnet.fc = nn.Sequential(
+            nn.Dropout(p=0.3),
+            nn.Linear(self.resnet.fc.in_features, 100)
+        )
     
     def forward(self, x):
         return self.resnet(x)

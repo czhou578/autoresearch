@@ -89,7 +89,7 @@ LOOP FOREVER:
 1. Look at the git state: the current branch/commit we're on
 2. Tune `train.py` with an experimental idea by directly hacking the code.
 3. git commit
-4. Run the experiment: `python train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context). Make sure that the loss obtained after every epoch of a trial run is logged into this file. Do NOT erase the log file contents after each trial. Continuously append the results of each trial to the end of the log file until the experiment is completed or terminated. 
+4. Run the experiment: `python train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context). Make sure that the loss obtained after both every epoch and every step in an epoch of a trial run is logged into this file. Do NOT erase the log file contents after each trial. Continuously append the results of each trial to the end of the log file until the experiment is completed or terminated. 
 5. Read out the results: `grep "^loss:" run.log`
 6. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
 7. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)

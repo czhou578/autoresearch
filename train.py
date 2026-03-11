@@ -170,7 +170,7 @@ optimizer = torch.optim.AdamW(
 
 scheduler = torch.optim.lr_scheduler.OneCycleLR(
     optimizer,
-    max_lr=5e-3,  # Changed from 1e-2
+    max_lr=3e-3,  # Changed from 5e-3
     epochs=num_epochs,
     steps_per_epoch=len(train_loader),
     pct_start=0.5,

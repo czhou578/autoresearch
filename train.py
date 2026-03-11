@@ -23,12 +23,12 @@ class ResNeXtModule(nn.Module):
         self.layers = nn.Sequential(
             nn.Conv2d(in_channel, reduce_channel, kernel_size=1, bias=False),
             nn.BatchNorm2d(reduce_channel),
-            nn.ReLU(inplace=True),
+            nn.GELU(),
 
             nn.Conv2d(reduce_channel, reduce_channel, kernel_size=3, stride=stride,
                      padding=1, groups=cardinality, bias=False),
             nn.BatchNorm2d(reduce_channel),
-            nn.ReLU(inplace=True),
+            nn.GELU(),
 
             nn.Conv2d(reduce_channel, out_channel, kernel_size=1, bias=False),
             nn.BatchNorm2d(out_channel),
@@ -42,7 +42,7 @@ class ResNeXtModule(nn.Module):
                 nn.BatchNorm2d(out_channel)
             )
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.GELU()
 
     def forward(self, x):
         identity = self.shortcut(x)
@@ -59,7 +59,7 @@ class ResNeXtCIFAR(nn.Module):
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
+            nn.GELU()
         )
         
         # Stage 1: 3 blocks, output map size 32×32, width=64

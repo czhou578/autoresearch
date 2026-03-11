@@ -141,6 +141,7 @@ for epoch in range(epochs):
             val_loss += val_batch_loss.item()
             val_batches += 1
     avg_val_loss = val_loss / val_batches
+    print(f"Epoch {epoch+1} loss: {avg_val_loss:.6f}")
     if avg_val_loss < best_val_loss:
         best_val_loss = avg_val_loss
         torch.save(model.state_dict(), 'best_squeezenet.pth')

@@ -25,3 +25,4 @@ cdb98d1	1.323047	5.4	discard	num_epochs 45
 5fafd10	1.298580	5.4	discard	RandomRotation 15
 a17065a	1.209954	6.8	keep	4 blocks per stage
 02987a4	1.198564	6.8	keep	SiLU activation
+38c6ff5	1.184223	6.8	keep	remove Normalize

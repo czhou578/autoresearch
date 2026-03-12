@@ -1,0 +1,66 @@
+# Session Log
+- **Session Started**: New 30-trial experiment loop initiated for ResNet50 architecture.
+- **Task**: Restored 5-minute time budget constraint and proper metric logging back to `train.py`.
+- **Note**: Re-created `results.tsv` for the new 30 trials (moved old one to `results_phase1.tsv`).
+- **Hypothesis**: The baseline ResNet50 provided by the user will serve as the starting point to optimize over 30 trials.
+- Baseline (ResNet50) complete. Loss: 2.344449, VRAM: 8.6GB, Time: 170.2s.
+- Experiment 1 Hypothesis: Increasing num_epochs from 26 to 45 will better utilize our 300s 5-minute time budget and improve performance, since OneCycleLR thrives on longer horizons.
+- Exp 1 (num_epochs=45) complete. Loss: 2.116059, kept. New best.
+- Exp 2 Hypothesis: Replacing ReLU with SiLU will improve the gradients across the deep network.
+- Exp 2 complete. Loss: 2.148212, discarded.
+- Exp 3 Hypothesis: GELU activation might work better than SiLU or ReLU for ResNet50, as seen in Phase 1.
+- Exp 3 (GELU) complete. Loss: 2.026, kept. New best!
+- Exp 4 Hypothesis: Increasing weight_decay from 1e-4 to 1e-3 to reduce overfitting.
+- Exp 4 (weight_decay 1e-3) complete. Loss: 1.993030, kept. New best!
+- Exp 5 Hypothesis: Removing `transforms.Normalize` gave a huge boost in Phase 1, so let's try removing it for the ResNet50 baseline.
+- Exp 5 (No Normalize) complete. Loss: 1.938892, kept. New best!
+- Exp 6 Hypothesis: Let's see if disabling label smoothing (0.0 instead of 0.1) lowers validation loss.
+- Exp 6 (label_smoothing=0.0) complete. Loss: 1.636959, kept. Massive new best!
+- Exp 7 Hypothesis: Since we removed normalization, extending the warmup phase (pct_start=0.5) might improve stability.
+- Exp 7 (pct_start=0.5) complete. Loss: 1.398428, kept. Huge new best!
+- Exp 8 Hypothesis: Increasing max_lr from 1e-2 to 1.5e-2 might push the model further now that it's highly stable.
+- Exp 8 complete. Loss: 1.515510, discarded.
+- Exp 9 Hypothesis: Squeezing 4 more epochs (num_epochs=49) into the 300s budget might eke out a slightly better convergence.
+- Exp 9 (num_epochs=49) complete. Loss: 1.392258, kept. New best!
+- Exp 10 Hypothesis: Decreasing batch size to 256 (and compensating with 25 epochs) might add beneficial noise to the gradients.
+- Exp 10 (batch 256, 25 epochs) complete. Loss: 1.514, discarded.
+- Exp 11 Hypothesis: batch 256 left 150 seconds on the table. Running 50 epochs instead of 25 will maximize time and likely beat the batch 512 baseline.
+- Exp 11 (batch 256, 50 epochs) complete. Loss: 1.395, slightly worse than 1.392. Discarded.
+- Exp 12 Hypothesis: Decreasing AdamW's base `lr` to 1e-4 might let OneCycleLR explore more effectively.
+- Exp 12 (lr 1e-4) complete. Loss: 1.440, discarded.
+- Exp 13 Hypothesis: RandomErasing p=0.7 is extremely aggressive for unnormalized data. Dropping it to p=0.25 might improve generalization.
+- Exp 13 (RandomErasing p=0.25) complete. Loss: 1.422, discarded.
+- Exp 14 Hypothesis: Lowering Dropout from 0.4 to 0.2 might reduce underfitting now that we have strong weight decay.
+- Exp 14 (Dropout 0.2) complete. Loss: 1.541, discarded.
+- Exp 15 Hypothesis: Since lowering Dropout hurt performance, maybe increasing it to 0.5 will help.
+- Exp 15 (Dropout 0.5) complete. Loss: 1.406, discarded.
+- Exp 16 Hypothesis: Decreasing max_lr from 1e-2 to 5e-3 might refine the weights more carefully without jumping out of local minima.
+- Exp 16 (max_lr 5e-3) complete. Loss: 1.353, kept. New best!
+- Exp 17 Hypothesis: Squeezing max_lr further down to 3e-3 might refine the loss locally, given 5e-3 was much better than 1e-2.
+- Exp 17 (max_lr 3e-3) complete. Loss: 1.295, kept. Massive new best!
+- Exp 18 Hypothesis: If max_lr=3e-3 was better than 5e-3, then maybe 2e-3 is the true minimum of this valley.
+- Exp 18 (max_lr 2e-3) complete. Loss: 1.326, discarded.
+- Exp 19 Hypothesis: Let's see if increasing weight_decay to 2e-3 will further mitigate overfitting.
+- Exp 19 (weight_decay 2e-3) complete. Loss: 1.303, discarded.
+- Exp 20 Hypothesis: Increasing weight decay degraded performance. Since our max_lr is smaller now, maybe a smaller weight_decay (5e-4) is better.
+- Exp 20 (weight_decay 5e-4) complete. Loss: 1.326, discarded. 1e-3 is clearly the sweet spot.
+- Exp 21 Hypothesis: Changing `div_factor` in OneCycleLR from 25.0 to 10.0 starts the learning rate slightly higher, which might accelerate initial convergence.
+- Exp 21 (div_factor 10.0) complete. Loss: 1.300, discarded.
+- Exp 22 Hypothesis: Since a smaller div_factor (higher initial LR) hurt, a larger div_factor (100.0, lower initial LR) might help stabilize early training.
+- Exp 22 (div_factor 100.0) complete. Loss: 1.316, discarded. Keep div_factor at 25.
+- Exp 23 Hypothesis: Let's see if a stronger ColorJitter (0.4 instead of 0.2) improves generalization on unnormalized images.
+- Exp 23 (ColorJitter 0.4) complete. Loss: 1.261, kept. Massive new best!
+- Exp 24 Hypothesis: Let's push ColorJitter further to 0.6, 0.6, 0.6 to see if the model has an appetite for even more noise.
+- Exp 24 (ColorJitter 0.6) complete. Loss: 1.297, discarded.
+- Exp 25 Hypothesis: Let's augment with transforms.RandomGrayscale(p=0.2) to make the model rely less on color features.
+- Exp 25 (RandomGrayscale 0.2) complete. Loss: 1.308, discarded.
+- Exp 26 Hypothesis: Let's test a very small label smoothing (0.05) now that we added stronger ColorJitter.
+- Exp 26 (label_smoothing 0.05) complete. Loss: 1.536, discarded.
+- Exp 27 Hypothesis: Doubling batch size to 1024 will halve step time, allowing us to double epochs (98), potentially giving the model more gradual updates.
+- Exp 27 (batch 1024) hit time budget, could not finish. Discarded.
+- Exp 28 Hypothesis: Adding RandomRotation(15) might improve robustness to orientation variations.
+- Exp 28 (RandomRotation 15) complete. Loss: 1.277, discarded.
+- Exp 29 Hypothesis: Since increasing dropout hurt, and we use strong regularizations (Weight decay 1e-3, RandomErasing 0.7, ColorJitter 0.4), maybe removing Dropout completely (0.0) is optimal.
+- Exp 29 (Dropout 0.0) complete. Loss: 1.479, discarded.
+- Exp 30 Hypothesis: For our final trial, let's see if slightly lowering RandomErasing from 0.7 to 0.5 strikes the perfect balance of regularization.
+- Exp 30 (RandomErasing 0.5) complete. Loss: 1.306, discarded. Exp 23 is our final winner!

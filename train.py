@@ -156,7 +156,7 @@ num_classes = 100
 model = ResNet50().to(device)
 
 num_epochs = 49
-loss_function = nn.CrossEntropyLoss(label_smoothing=0.0)
+loss_function = nn.CrossEntropyLoss(label_smoothing=0.05)
 base_lr = 4e-3
 
 batch_scale = 1024 / 256  # 4x larger batches

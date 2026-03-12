@@ -111,3 +111,11 @@ As an example use case, a user might leave you running while they sleep. If each
 ![alt text](sample_plot.png)
 
 **Additional Instructions**: During our session you are to create & maintain a session log, writing into it everything you do, all your work, a running summary of fixes, patches, hypotheses, tasks, bugs, etc. You will start this doc at the start of this session in "session_log.log" file.
+
+## Instructions to paste into chat
+Read AGENTS.md carefully.
+
+Now run full HPO squad on our PyTorch model.
+Goal: minimize validation loss on Squad dataset.
+Current baseline: lr=1e-4, batch=32, dropout=0.1 → val loss ~1.85 after 2 epochs.
+Generate 3 hypotheses, spawn trials in parallel worktrees, run 5-min trainings, aggregate and recommend best config.

@@ -1,0 +1,49 @@
+{
+    "version": "2.0",
+    "workspace_name": "Pro-Orchestrator-Team",
+    "agents": [
+        {
+            "id": "hpo_orchestrator",
+            "name": "ML Tuning Lead",
+            "mode": "parallel_dispatch",
+            "max_parallel_agents": 3,
+            "dispatch_strategy": {
+                "type": "branch_per_task",
+                "naming_convention": "exp/agent_{id}_{timestamp}"
+            },
+            "sub_agent_settings": {
+                "permissions": [
+                    "terminal_execute",
+                    "file_edit",
+                    "create_artifacts"
+                ],
+                "model": "gemini-3-flash"
+            },
+            "constraints": [
+                "Each trial must not exceed 5 minutes.",
+                "Results must be saved as a 'Trial Summary' artifact including loss plots."
+            ]
+        },
+        {
+            "id": "worker_01",
+            "name": "The Worker",
+            "role": "Execution & Diff Generation",
+            "model": "gemini-3.1-pro",
+            "temperature": 0.0,
+            "permissions": [
+                "write_filesystem",
+                "execute_terminal",
+                "read_lsp"
+            ],
+            "system_prompt": "You are a Senior Software Engineer. Your job is to execute the instructions provided by 'The Architect'. Follow the project style guide strictly. Use the terminal to run tests after every change."
+        }
+    ],
+    "orchestration": {
+        "mode": "sequential_validation",
+        "workflow": [
+            "architect_01",
+            "worker_01",
+            "pedant_01"
+        ]
+    }
+}

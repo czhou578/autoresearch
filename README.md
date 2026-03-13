@@ -1,7 +1,9 @@
 # autoresearch
-AI agents finetuning various CNN models on a single NVIDIA GPU. 
+3 AI agents finetuning various CNN models on a single NVIDIA GPU. 
 
 ## How it works
+
+**This is my experiment to see performance of multiple parallel AI agents at doing research on finetuning a custom written LLM model in PyTorch**s
 
 Each parallel agent has its own worktrees with its own branches. At the end, they report the results to the swarm_status.md file. If there is a result that is worse, then the worktree is deleted. If there is a result that is better, then the agent logs the results and future iterations build on top of the best result.
 
@@ -26,7 +28,6 @@ By design, training runs for a fixed 5-minute time budget (wall clock, excluding
 
 Interesting notes:
 
-- The agent ran 10 trials by itself but then stopped and asked if more iterations were needed
-- Make sure to explicitly state that all epoch result numbers are appended to the end of the log file.
-- Be very clear about what the agent is going to modify (it will do exactly what it is allowed to do!)
-- every agent needed explicit permission to access the run.log file in each worktree and to edit the training file in each individual worktree before starting experiments
+- every agent needed explicit permission to access the `run.log` file in each worktree and to edit the training file in each individual worktree before starting experiments
+
+- Antigravity spawned 3 different git tree workflows. Each branch made a copy of this local branch, implemented a change in the `train.py` file, and then ran a training loop. At the end, the results were scraped from the `run.log` files in every branch, and then reported to `results.tsv` and `swarm_status.md`. Branches were then deleted if their results were worse than the current best.

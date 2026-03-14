@@ -6,12 +6,10 @@ This is an experiment to have the LLM do its own research.
 
 To set up a new experiment, work with the user to:
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
-2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current master.
-3. **Read the in-scope files**: The repo is small. Read these files for full context:
+1. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
-4. **Confirm and go**: Confirm setup looks good.
+2. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.
 
@@ -80,6 +78,20 @@ c3d4e5f	1.005000	44.0	discard	switch to GeLU activation
 d4e5f6g	0.000000	0.0	crash	double model width (OOM)
 ```
 
+## Working with `swarm_brain.json`
+
+To coordinate with other agents, use `swarm_brain.json` as a shared knowledge base.
+
+- **At the VERY START of every thought:** read `swarm_brain.json`.
+- **At the VERY END of every thought:** append your agent identifier, validation loss, and description of changes made to `swarm_brain.json` (never delete anything, just append).
+
+**Example entry:**
+```json
+{"agent_id": "trial_worker_1", "validation_loss": 0.9932, "description": "Increased LR to 0.04"}
+```
+
+Make sure to identify the entry with the lowest validation loss, and use that as the baseline for your next experiment (ie. make the changes that were described in the description of the entry with the lowest validation loss and build off of that). Also, keep track of the history of the lowest loss achieved so far, and make sure to not repeat experiments that have already been done, and also incorporate all the changes made in the previous lowest loss entries.
+
 ## The experiment loop
 
 The experiment runs on a dedicated branch (e.g. `autoresearch/mar5` or `autoresearch/mar5-gpu0`).
@@ -100,7 +112,7 @@ The idea is that you are a completely autonomous researcher trying things out. I
 
 **Timeout**: Each experiment should take ~5 minutes total (+ a few seconds for startup and eval overhead). If a run exceeds 10 minutes, kill it and treat it as a failure (discard and revert).
 
-**Crashes**: If a run crashes (OOM, or a bug, or etc.), use your judgment: If it's something dumb and easy to fix (e.g. a typo, a missing import), fix it and re-run. If the idea itself is fundamentally broken, just skip it, log "crash" as the status in the tsv, and move on.
+**Crashes**: If a run crashes (OOM, or a bug, or etc.), use your judgment: If it's something dumb and easy to fix (e.g. a typo, a missing import), fix it and re-run. If the idea itself is fundamentally broken, just skip it, log "crash" as the status in the tsv, and move on. If there is a PyTorch incompability error, change the version of PyTorch to match the hardware. If there is an error with installing `requirements.txt`, you can create a fresh conda venv and go from there as a last resort.
 
 **NEVER STOP**: Once the experiment loop has begun (after the initial setup), do NOT pause to ask the human if you should continue. Do NOT ask "should I keep going?" or "is this a good stopping point?". The human might be asleep, or gone from a computer and expects you to continue working *indefinitely* until you are manually stopped. You are autonomous. If you run out of ideas, think harder — read papers referenced in the code, re-read the in-scope files for new angles, try combining previous near-misses, try more radical architectural changes. The loop runs until the human interrupts you, period.
 

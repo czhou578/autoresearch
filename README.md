@@ -1,5 +1,5 @@
 # autoresearch
-AI agents finetuning various CNN models on a single NVIDIA GPU. 
+3 AI agents finetuning various CNN models on a single NVIDIA GPU. 
 
 ## How it works
 
@@ -18,12 +18,12 @@ I am using a single Nvidia GPU on Runpod, and running code using Google Antigrav
 To kick things off: tell the agent this: 
 
 `Hi, have a look at program.md and let's kick off a new experiment! Append the loss from each output as well as the final statistics to run.log. Do not erase the
-results of any previous runs in the log file during the experiment.`
+results of any previous runs in the log file during the experiment.
+
+At the VERY START of every thought: read `swarm_brain.json`
+At the VERY END of every thought: append your agent identifier, validation loss, and description of changes made to `swarm_brain.json` (never delete anything, just append)
+`
 
 By design, training runs for a fixed 5-minute time budget (wall clock, excluding startup/compilation), regardless of the details of your compute.
 
 Interesting notes:
-
-- The agent ran 10 trials by itself but then stopped and asked if more iterations were needed
-- Make sure to explicitly state that all epoch result numbers are appended to the end of the log file.
-- Be very clear about what the agent is going to modify (it will do exactly what it is allowed to do!)

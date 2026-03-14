@@ -63,10 +63,7 @@ class SqueezeNet(nn.Module):
         x = x.view(x.size(0), -1)
         return x
 
-torch.backends.cudnn.benchmark = True
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cudnn.allow_tf32 = True
-torch.set_float32_matmul_precision('high')
+# Removed TF32 flags to avoid CUDA errors
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")

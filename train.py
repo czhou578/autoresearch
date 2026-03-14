@@ -1,65 +1,86 @@
+import time
 import torch
-from torch.utils.data import DataLoader
 from torch import nn
 from torchvision import transforms, datasets
-from torch.utils.data import Subset
+from torch.utils.data import DataLoader, Subset
 
-class FireModule(nn.Module):
-    def __init__(self, in_channels, sqz_out_channels, expand_filters_one, expand_filters_three):
+class MBConvBlock(nn.Module):
+    def __init__(self, in_channels, out_channels, expansion_factor, reduction_factor = 4, stride = 1):
         super().__init__()
 
-        self.squeeze_layers = nn.Conv2d(in_channels, sqz_out_channels, kernel_size=1)
+        expanded_channels = in_channels * expansion_factor
 
-        self.expand_ones = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_one, kernel_size=1),
-            nn.ReLU()            
+        self.use_skip = (in_channels == out_channels and stride == 1)
+
+        self.expansion_layers = nn.Sequential(
+            nn.Conv2d(in_channels, expanded_channels, kernel_size=(1, 1), stride=1),
+            nn.BatchNorm2d(expanded_channels),
+            nn.SiLU(),
+            nn.Conv2d(expanded_channels, expanded_channels, kernel_size=(3, 3), groups=expanded_channels, padding=1, stride=stride),
+            nn.BatchNorm2d(expanded_channels),
+            nn.SiLU(),        
         )
 
-        self.expand_threes = nn.Sequential(
-            nn.Conv2d(sqz_out_channels, expand_filters_three, kernel_size=3, padding=1),
-            nn.ReLU()            
+        self.global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+
+        self.excitation_layers = nn.Sequential(
+            nn.Linear(expanded_channels, expanded_channels // reduction_factor),
+            nn.SiLU(),
+            nn.Linear(expanded_channels // reduction_factor, expanded_channels),
+            nn.Sigmoid(),
         )
 
-        self.relu = nn.ReLU()
+        self.contract_layers = nn.Sequential(
+            nn.Conv2d(expanded_channels, out_channels, kernel_size=1, stride=1),
+            nn.BatchNorm2d(out_channels)
+        )
 
+    
     def forward(self, x):
-        x = self.squeeze_layers(x)
+        features = self.expansion_layers(x)
+        pooled_features = self.global_avg_pool(features)
+        squeezed_features = pooled_features.squeeze(-1).squeeze(-1)
+        excited_features = self.excitation_layers(squeezed_features)
+        unsqueezed_features = excited_features.unsqueeze(-1).unsqueeze(-1)
+        attention_features = unsqueezed_features * features
+        final_features = self.contract_layers(attention_features)
 
-        return torch.cat([self.expand_ones(x), self.expand_threes(x)], dim=1)
-
-
-class SqueezeNet(nn.Module):
+        return final_features + x if self.use_skip else final_features
+    
+class EfficientNet(nn.Module):
     def __init__(self):
         super().__init__()
-
         self.layers = nn.Sequential(
-            # nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, stride=2),
-            nn.Conv2d(in_channels=3, out_channels=96, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(3, 32, stride=1, kernel_size=3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.SiLU(),
 
-            nn.ReLU(), # not specified clearly within paper
-            # nn.MaxPool2d(kernel_size=3, stride=2),
-            FireModule(96, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
-            FireModule(128, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
-            FireModule(128, sqz_out_channels=32, expand_filters_one=128, expand_filters_three=128),
+            MBConvBlock(32, 64, 2, 4, 2),
+            MBConvBlock(64, 64, 2, 4),
+            MBConvBlock(64, 64, 2, 4),
 
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+            MBConvBlock(64, 128, 3, 4, 2),
+            MBConvBlock(128, 128, 3, 4, 1),
+            MBConvBlock(128, 128, 3, 4, 1),
+            MBConvBlock(128, 128, 3, 4, 1),
 
-            FireModule(256, sqz_out_channels=32, expand_filters_one=128, expand_filters_three=128),
-            FireModule(256, sqz_out_channels=48, expand_filters_one=192, expand_filters_three=192),
-            FireModule(384, sqz_out_channels=48, expand_filters_one=192, expand_filters_three=192),
-            FireModule(384, sqz_out_channels=64, expand_filters_one=256, expand_filters_three=256),
+            MBConvBlock(128, 256, 3, 4, 2),
+            MBConvBlock(256, 256, 3, 4, 1),
+            MBConvBlock(256, 256, 3, 4, 1),
+            MBConvBlock(256, 256, 3, 4, 1),
 
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
 
-            FireModule(512, sqz_out_channels=64, expand_filters_one=256, expand_filters_three=256),
-            # nn.Dropout(0.5),
-            nn.Conv2d(in_channels=512, out_channels=100, kernel_size=1, stride=1),
-            nn.AdaptiveAvgPool2d((1, 1))
+            nn.Conv2d(256, 512, kernel_size=1),
+            nn.AdaptiveAvgPool2d((1, 1)),
         )
+        self.dropout = nn.Dropout(0.2)
+        self.linear = nn.Linear(512, 100)
     
     def forward(self, x):
         x = self.layers(x)
-        x = x.view(x.size(0), -1)
+        x = x.squeeze(-1).squeeze(-1)
+        x = self.dropout(self.linear(x))
+
         return x
 
 torch.backends.cudnn.benchmark = True
@@ -80,7 +101,7 @@ train_transform = transforms.Compose([
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # Mild to avoid over-distortion
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5071, 0.4865, 0.4409], std=[0.2673, 0.2564, 0.2761]),
-    transforms.RandomErasing(p=0.25)  # Apply after normalization for consistency
+    transforms.RandomErasing(p=0.5)  # Apply after normalization for consistency
 ])
 
 test_transform = transforms.Compose([
@@ -109,8 +130,8 @@ cifar_val = Subset(
 cifar_test = datasets.CIFAR100(root="./data", train=False, transform=test_transform)
 
 train_loader = DataLoader(
-    cifar_train,
-    batch_size=512,  # Changed from 512
+    cifar_train,  # Use directly
+    batch_size=1024,
     shuffle=True,
     num_workers=2,
     pin_memory=True,
@@ -120,7 +141,7 @@ train_loader = DataLoader(
 
 val_loader = DataLoader(
     cifar_val,  # Use directly
-    batch_size=512,
+    batch_size=1024,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -130,7 +151,7 @@ val_loader = DataLoader(
 
 test_loader = DataLoader(
     cifar_test,
-    batch_size=512,
+    batch_size=1024,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -140,41 +161,118 @@ test_loader = DataLoader(
 
 num_classes = 100
 
-model = SqueezeNet().to(device)
+model = EfficientNet().to(device)
 
-lr = 0.001
-batch_size = 256
-epochs = 10
-
-train_loader = DataLoader(cifar_train, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)
-val_loader = DataLoader(cifar_val, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True, persistent_workers=True, prefetch_factor=6)
+num_epochs = 40
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
-optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr * 3, epochs=epochs, steps_per_epoch=len(train_loader), pct_start=0.3, anneal_strategy='cos', div_factor=25.0, final_div_factor=1000.0)
+base_lr = 4e-3
+
+batch_scale = 1024 / 256  # 4x larger batches
+scaled_lr = base_lr * batch_scale**0.5  # Square root scaling
+
+optimizer = torch.optim.AdamW(
+    model.parameters(),
+    lr=3e-3,  # Keep this for now, let OneCycleLR handle it
+    weight_decay=5e-4
+)
+
+scheduler = torch.optim.lr_scheduler.OneCycleLR(
+    optimizer,
+    max_lr=5e-3,                # Slightly lower peak LR for stability
+    epochs=num_epochs,          # Keep 45 epochs
+    steps_per_epoch=len(train_loader),
+    pct_start=0.4,              # Increase warmup to 40% (18 epochs)
+    anneal_strategy='cos',
+    div_factor=12.0,            # Start LR = 5e-3 / 12 = 4.2e-4
+    final_div_factor=400.0      # Final LR = 5e-3 / 400 = 1.25e-5
+)
+
 best_val_loss = float('inf')
-for epoch in range(epochs):
+
+start_time = time.time()
+training_seconds = 0
+num_steps = 0
+total_start_time = time.time()
+
+num_params_M = sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6
+
+for epoch in range(num_epochs):
+    print(f'Starting Epoch {epoch+1}')
     model.train()
-    for inputs, targets in train_loader:
+
+    current_loss = 0.0
+    num_batches = 0
+
+    for i, data in enumerate(train_loader):
+        inputs, targets = data
         inputs, targets = inputs.to(device), targets.to(device)
-        optimizer.zero_grad(set_to_none=True)
+            
         outputs = model(inputs)
         loss = loss_function(outputs, targets)
         loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
         optimizer.step()
+        optimizer.zero_grad(set_to_none=True)
         scheduler.step()
-    model.eval()
-    val_loss = 0.0
-    val_batches = 0
-    with torch.no_grad():
-        for val_inputs, val_targets in val_loader:
-            val_inputs, val_targets = val_inputs.to(device), val_targets.to(device)
-            val_outputs = model(val_inputs)
-            val_batch_loss = loss_function(val_outputs, val_targets)
-            val_loss += val_batch_loss.item()
-            val_batches += 1
-    avg_val_loss = val_loss / val_batches
-    if avg_val_loss < best_val_loss:
-        best_val_loss = avg_val_loss
-        torch.save(model.state_dict(), 'best_squeezenet.pth')
-print(f'FINAL_VAL_LOSS: {best_val_loss:.6f}')
+
+        current_loss += loss.item()
+        num_batches += 1
+        num_steps += 1
+
+        print(f'Batch {num_batches}/{len(train_loader)}, Loss: {loss.item():.4f}')
+        
+        training_seconds = time.time() - start_time
+        if training_seconds > 300:
+            print("Time limit reached. Stopping training.")
+            break
+            
+    if training_seconds > 300:
+        break
+
+
+    avg_train_loss = current_loss / num_batches
+    print(f'Epoch {epoch+1} finished')
+    print(f'Training - Loss: {avg_train_loss:.4f}')
+
+    if (epoch + 1) % 2 == 0:
+        model.eval()
+        val_loss = 0.0
+        val_batches = 0
+
+        print(f'Epoch {epoch+1} finished')
+        print(f'average training loss is {avg_train_loss:.4f}')
+
+        with torch.no_grad():
+            for val_data in val_loader:
+                val_inputs, val_targets = val_data
+                val_inputs, val_targets = val_inputs.to(device), val_targets.to(device)  # Convert inputs to FP16
+
+                val_outputs = model(val_inputs)
+                val_batch_loss = loss_function(val_outputs, val_targets)
+
+                val_loss += val_batch_loss.item()
+                val_batches += 1
+
+
+        avg_val_loss = val_loss / val_batches
+        
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+
+        print(f'Epoch {epoch+1} finished')
+        print(f'Training - Loss: {avg_train_loss:.4f}')
+        print(f'Validation - Loss: {avg_val_loss:.4f}')
+
+if torch.cuda.is_available():
+    torch.cuda.empty_cache()
+
+peak_vram_mb = torch.cuda.max_memory_allocated() / 1024 / 1024 if torch.cuda.is_available() else 0
+total_seconds = time.time() - total_start_time
+
+print("---")
+print(f"loss:          {best_val_loss:.6f}")
+print(f"training_seconds: {training_seconds:.1f}")
+print(f"total_seconds:    {total_seconds:.1f}")
+print(f"peak_vram_mb:     {peak_vram_mb:.1f}")
+print(f"num_steps:        {num_steps}")
+print(f"num_params_M:     {num_params_M:.1f}")

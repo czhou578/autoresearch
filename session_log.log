@@ -1,0 +1,25 @@
+# Session Log
+
+## Initialization
+- Read `swarm_brain.json` (empty)
+- Read `train.py` and `program.md`
+- Added 5-minute time budget constraint to `train.py`
+- Fixed `num_steps` and `best_val_loss` tracking in `train.py`
+- Replaced 50-batch print logging with every-step logging as requested.
+- Starting baseline run.
+
+## Experiment 2
+Idea: Reduce weight decay to 1e-4 and label smoothing to 0.05
+
+
+## Agent 1 (LR)
+Idea: Increase max LR to 1e-2.
+
+
+## Agent 2 (WD)
+Idea: Reduce weight decay to 1e-4 and label smoothing to 0.05
+
+
+## Agent 3 (BS)
+Idea: Decrease batch size from 256 to 128 to improve generalization (adjusting LR proportionally).
+

@@ -27,3 +27,11 @@ At the VERY END of every thought: append your agent identifier, validation loss,
 By design, training runs for a fixed 5-minute time budget (wall clock, excluding startup/compilation), regardless of the details of your compute.
 
 Interesting notes:
+
+I'm now investigating why CUDA might be unavailable, despite being indicated as present. I'm considering potential causes such as concurrent context limitations and environment variable configurations. Sequential execution is a potential workaround, though it contradicts the prior prompt, which requested parallel operation. I am focusing on diagnosing the root cause and devising an appropriate resolution strategy.
+
+Make sure to specify how git branching should work. Otherwise, it will checkout main and execute the wrong code. 
+
+Define gitignore correctly as to what files should be created. Be very strict
+
+There are possible process waiting issues, so specify how to handle them. 

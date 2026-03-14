@@ -13,15 +13,15 @@ class FireModule(nn.Module):
 
         self.expand_ones = nn.Sequential(
             nn.Conv2d(sqz_out_channels, expand_filters_one, kernel_size=1),
-            nn.ReLU()            
+            nn.SiLU()            
         )
 
         self.expand_threes = nn.Sequential(
             nn.Conv2d(sqz_out_channels, expand_filters_three, kernel_size=3, padding=1),
-            nn.ReLU()            
+            nn.SiLU()            
         )
 
-        self.relu = nn.ReLU()
+        self.relu = nn.SiLU()
 
     def forward(self, x):
         x = self.squeeze_layers(x)
@@ -37,7 +37,7 @@ class SqueezeNet(nn.Module):
             # nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, stride=2),
             nn.Conv2d(in_channels=3, out_channels=96, kernel_size=3, stride=1, padding=1),
 
-            nn.ReLU(), # not specified clearly within paper
+            nn.SiLU(), # not specified clearly within paper
             # nn.MaxPool2d(kernel_size=3, stride=2),
             FireModule(96, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
             FireModule(128, sqz_out_channels=16, expand_filters_one=64, expand_filters_three=64),
@@ -140,7 +140,7 @@ num_classes = 100
 
 model = SqueezeNet().to(device)
 
-lr = 0.001
+lr = 0.0005
 batch_size = 256
 epochs = 40
 

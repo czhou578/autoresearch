@@ -65,7 +65,8 @@ class SqueezeNet(nn.Module):
 
 # Removed TF32 flags to avoid CUDA errors
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+torch.cuda.is_available = lambda: False
+device = torch.device('cpu')
 print(f"Using device: {device}")
 
 if torch.cuda.is_available():

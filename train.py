@@ -1,4 +1,5 @@
 import torch
+import time
 from torch.utils.data import DataLoader
 from torch import nn
 from torchvision import transforms, datasets
@@ -152,6 +153,8 @@ loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr * 3, epochs=epochs, steps_per_epoch=len(train_loader), pct_start=0.3, anneal_strategy='cos', div_factor=25.0, final_div_factor=1000.0)
 best_val_loss = float('inf')
+start_time = time.time()
+global_steps = 0
 for epoch in range(epochs):
     model.train()
     for inputs, targets in train_loader:
@@ -163,6 +166,11 @@ for epoch in range(epochs):
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
+        global_steps += 1
+        
+        if time.time() - start_time > 280:
+            break
+
     model.eval()
     val_loss = 0.0
     val_batches = 0
@@ -177,4 +185,15 @@ for epoch in range(epochs):
     if avg_val_loss < best_val_loss:
         best_val_loss = avg_val_loss
         torch.save(model.state_dict(), 'best_squeezenet.pth')
-print(f'FINAL_VAL_LOSS: {best_val_loss:.6f}')
+        
+    if time.time() - start_time > 280:
+        break
+
+training_seconds = time.time() - start_time
+print("---")
+print(f"loss:          {best_val_loss:.6f}")
+print(f"training_seconds: {training_seconds:.1f}")
+print(f"total_seconds:    {training_seconds:.1f}")
+print(f"peak_vram_mb:     {torch.cuda.max_memory_allocated(device)/1e6 if torch.cuda.is_available() else 0.0:.1f}")
+print(f"num_steps:        {global_steps}")
+print(f"num_params_M:     {sum(p.numel() for p in model.parameters())/1e6:.1f}")

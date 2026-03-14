@@ -3,6 +3,8 @@ AI agents finetuning various CNN models on a single NVIDIA GPU.
 
 ## How it works
 
+Each parallel agent has its own worktrees with its own branches. At the end, they report the results to the swarm_status.md file. If there is a result that is worse, then the worktree is deleted. If there is a result that is better, then the agent logs the results and future iterations build on top of the best result.
+
 There are only a few files that matter*:
 
 `train.py`: This is the location for the source code of the PyTorch model implementations. It contains all the training code that the AI is allowed to modify. 
@@ -27,3 +29,4 @@ Interesting notes:
 - The agent ran 10 trials by itself but then stopped and asked if more iterations were needed
 - Make sure to explicitly state that all epoch result numbers are appended to the end of the log file.
 - Be very clear about what the agent is going to modify (it will do exactly what it is allowed to do!)
+- every agent needed explicit permission to access the run.log file in each worktree and to edit the training file in each individual worktree before starting experiments

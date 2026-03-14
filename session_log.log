@@ -1,0 +1,7 @@
+# Session Log - AutoResearch
+Date: 2026-03-14
+
+## Setup
+- Created branch: autoresearch/mar14
+- Baseline: Running train.py to establish the baseline loss.
+\n- Attempted GPU run, hit sm_120 incompatibility. Upgraded to PyTorch cu128 nightly to fix. Now running true GPU baseline

@@ -19,5 +19,9 @@ AGENTS.md
 # Experimental code/artifacts
 dev/
 
+data/
+
 # Results file
 results.tsv
+
+*.pth

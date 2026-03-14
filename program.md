@@ -6,23 +6,28 @@ This is an experiment to have the LLM do its own research.
 
 To set up a new experiment, work with the user to:
 
-1. **Read the in-scope files**: The repo is small. Read these files for full context:
+1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/efficientnet-swarm-json`, but make sure my current IDE workspace branch remains the current branch. 
+
+2. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
-2. **Confirm and go**: Confirm setup looks good.
+3. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.
 
 ## Experimentation
 
-Each experiment runs on a single GPU. The training script runs for a **fixed time budget of 5 minutes** (wall clock training time, excluding startup/compilation). You launch it simply as: `python train.py`.
+Each experiment runs on a single GPU. The training script runs for a **fixed time budget of 5 minutes** (wall clock training time, excluding startup/compilation). You launch it simply as: `python train.py`. Make sure the time limit is never exceeded by any trial run. 
 
 **What you CAN do:**
 - Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture layers, optimizer, hyperparameters, training loop, batch size, model size, etc. Do not edit the Dataloader or the data preparation logic! In addition, do not throw away the overall model architecture as defined in the comments at the top of the training file. 
 
+- Create log files for each agent to track the progress of each training runs. 
+
 **What you CANNOT do:**
 - Install new packages or add dependencies. You can only use what's already in `requirements.txt`.
 - Modify the evaluation harness. The `evaluate_test_set` function in `train.py` is the ground truth metric.
+- Create a bunch of non logging related files or other files that are not necessary for evaluating or analzying the overall experiment. 
 
 **The goal is simple: get the lowest loss.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
 
@@ -110,7 +115,7 @@ LOOP FOREVER:
 
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
-**Timeout**: Each experiment should take ~5 minutes total (+ a few seconds for startup and eval overhead). If a run exceeds 10 minutes, kill it and treat it as a failure (discard and revert).
+**Timeout**: Each experiment should take ~5 minutes total (+ a few seconds for startup and eval overhead). If a run exceeds 10 minutes, kill it and treat it as a failure (discard and revert). If the worker agent process gets stuck and exceeds the time limit, then kill it and treat it as a failure.
 
 **Crashes**: If a run crashes (OOM, or a bug, or etc.), use your judgment: If it's something dumb and easy to fix (e.g. a typo, a missing import), fix it and re-run. If the idea itself is fundamentally broken, just skip it, log "crash" as the status in the tsv, and move on. If there is a PyTorch incompability error, change the version of PyTorch to match the hardware. If there is an error with installing `requirements.txt`, you can create a fresh conda venv and go from there as a last resort.
 

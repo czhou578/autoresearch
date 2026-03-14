@@ -17,7 +17,7 @@ I am using a single Nvidia GPU on Runpod, and running code using Google Antigrav
 
 To kick things off: tell the agent this: 
 
-`Hi, have a look at program.md and let's kick off a new experiment! Append the loss from each output as well as the final statistics to run.log. Do not erase the
+`Hi, have a look at program.md and let's kick off a new experiment using 2 worker agents! Append the loss from each output as well as the final statistics to run.log. Do not erase the
 results of any previous runs in the log file during the experiment.
 
 At the VERY START of every thought: read `swarm_brain.json`

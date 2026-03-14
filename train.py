@@ -1,4 +1,3 @@
-import time
 import torch
 from torch import nn
 from torchvision import transforms, datasets
@@ -189,13 +188,6 @@ scheduler = torch.optim.lr_scheduler.OneCycleLR(
 
 best_val_loss = float('inf')
 
-start_time = time.time()
-training_seconds = 0
-num_steps = 0
-total_start_time = time.time()
-
-num_params_M = sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6
-
 for epoch in range(num_epochs):
     print(f'Starting Epoch {epoch+1}')
     model.train()
@@ -217,17 +209,9 @@ for epoch in range(num_epochs):
 
         current_loss += loss.item()
         num_batches += 1
-        num_steps += 1
 
-        print(f'Batch {num_batches}/{len(train_loader)}, Loss: {loss.item():.4f}')
-        
-        training_seconds = time.time() - start_time
-        if training_seconds > 300:
-            print("Time limit reached. Stopping training.")
-            break
-            
-    if training_seconds > 300:
-        break
+        if i % 50 == 0:
+            print(f'Batch {i}/{len(train_loader)}, Loss: {loss.item():.4f}')
 
 
     avg_train_loss = current_loss / num_batches
@@ -255,9 +239,6 @@ for epoch in range(num_epochs):
 
 
         avg_val_loss = val_loss / val_batches
-        
-        if avg_val_loss < best_val_loss:
-            best_val_loss = avg_val_loss
 
         print(f'Epoch {epoch+1} finished')
         print(f'Training - Loss: {avg_train_loss:.4f}')
@@ -265,14 +246,3 @@ for epoch in range(num_epochs):
 
 if torch.cuda.is_available():
     torch.cuda.empty_cache()
-
-peak_vram_mb = torch.cuda.max_memory_allocated() / 1024 / 1024 if torch.cuda.is_available() else 0
-total_seconds = time.time() - total_start_time
-
-print("---")
-print(f"loss:          {best_val_loss:.6f}")
-print(f"training_seconds: {training_seconds:.1f}")
-print(f"total_seconds:    {total_seconds:.1f}")
-print(f"peak_vram_mb:     {peak_vram_mb:.1f}")
-print(f"num_steps:        {num_steps}")
-print(f"num_params_M:     {num_params_M:.1f}")

@@ -15,6 +15,7 @@ To set up a new experiment, work with the user to:
 2. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
+   - `templates/` — contains the template for team updates.
 3. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.

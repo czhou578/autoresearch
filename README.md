@@ -20,18 +20,10 @@ To kick things off: tell the agent this:
 `Hi, have a look at program.md and let's kick off a new experiment using 2 worker agents! Append the loss from each output as well as the final statistics to run.log. Do not erase the
 results of any previous runs in the log file during the experiment. The worker agents should run their trials in parallel. 
 
-At the VERY START of every thought: read `swarm_brain.json`
-At the VERY END of every thought: append your agent identifier, validation loss, and description of changes made to `swarm_brain.json` (never delete anything, just append)
+You MUST end every task with an Artifact named exactly team_update_[your_role].md using the template in `team_update_template.md`. Other agents will read these.
 `
 
 By design, training runs for a fixed 5-minute time budget (wall clock, excluding startup/compilation), regardless of the details of your compute.
 
-Interesting notes:
+Interesting notes (for personal purposes - IGNORE):
 
-I'm now investigating why CUDA might be unavailable, despite being indicated as present. I'm considering potential causes such as concurrent context limitations and environment variable configurations. Sequential execution is a potential workaround, though it contradicts the prior prompt, which requested parallel operation. I am focusing on diagnosing the root cause and devising an appropriate resolution strategy.
-
-Make sure to specify how git branching should work. Otherwise, it will checkout main and execute the wrong code. 
-
-Define gitignore correctly as to what files should be created. Be very strict
-
-There are possible process waiting issues, so specify how to handle them. 

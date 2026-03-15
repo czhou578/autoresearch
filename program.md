@@ -1,12 +1,20 @@
 # autoresearch
 
-This is an experiment to have the LLM do its own research.
+This is an experiment to have parallel agents improve a PyTorch model and run experiments in parallel, building off of the lowest found validation loss.
+
+You are the Researcher agent in a multi-agent swarm.
+
+CRITICAL SWARM PROTOCOL — YOU MUST FOLLOW THIS EVERY SINGLE TIME:
+1. At the VERY START of every thought cycle: Read ALL files named team_update_*.md in the workspace root.
+2. At the VERY END of every task: Create (or overwrite) a file named EXACTLY: team_update_researcher_[agent_id].md using the exact markdown template as `team_update_template.md`.
+
+Your role: Improve the validation loss of my PyTorch model in `train.py` as much as possible. 
 
 ## Setup
 
 To set up a new experiment, work with the user to:
 
-1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/efficientnet-swarm-json`, but make sure my current IDE workspace branch remains the current branch. 
+1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/resnext-artifact-swarm`, but make sure my current IDE workspace branch remains the current branch. 
 
 2. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
@@ -22,13 +30,14 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 **What you CAN do:**
 - Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture layers, optimizer, hyperparameters, training loop, batch size, model size, etc. Do not edit the Dataloader or the data preparation logic! In addition, do not throw away the overall model architecture as defined in the comments at the top of the training file. 
 
-- Create log files for each agent to track the progress of each training runs. 
+- Create log files for each agent to track the progress of each training runs.
+- Divide the GPU resources up for the number of agents. Run commands to check hardware utilization after the completion of each trial before starting the next trial. 
 
 **What you CANNOT do:**
 - Install new packages or add dependencies. You can only use what's already in `requirements.txt`.
 - Modify the evaluation harness. The `evaluate_test_set` function in `train.py` is the ground truth metric.
 - Create a bunch of non logging related files or other files that are not necessary for evaluating or analzying the overall experiment. 
-- Run any of the experiments on CPU. Divide the GPU resources up for the number of agents. 
+- Run any of the experiments on CPU. 
 
 **The goal is simple: get the lowest loss.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
 
@@ -36,7 +45,9 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome — that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 loss improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 loss improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
-**The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is.
+**The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is. Doing this with just one agent is fine.
+
+**Subsequent runs**: You can now use 2 agents to run experiments in parallel. 
 
 ## Output format
 
@@ -84,12 +95,12 @@ c3d4e5f	1.005000	44.0	discard	switch to GeLU activation
 d4e5f6g	0.000000	0.0	crash	double model width (OOM)
 ```
 
-## Working with `swarm_brain.json`
+## Working with `team_update_[role].md` files
 
-To coordinate with other agents, use `swarm_brain.json` as a shared knowledge base.
+To coordinate with other agents, use `team_update_[role].md` files as a shared knowledge base.
 
-- **At the VERY START of every thought:** read `swarm_brain.json`.
-- **At the VERY END of every thought:** append your agent identifier, validation loss, and description of changes made to `swarm_brain.json` (never delete anything, just append).
+- **At the VERY START of every trial run:** read `team_update_[role].md` files.
+- **At the VERY END of every trial run:** append your agent identifier, validation loss, and description of changes made to `team_update_[role].md` (never delete anything, just append).
 
 **Example entry:**
 ```json

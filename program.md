@@ -4,10 +4,6 @@ This is an experiment to have parallel agents improve a PyTorch model and run ex
 
 You are the Researcher agent in a multi-agent swarm.
 
-CRITICAL SWARM PROTOCOL — YOU MUST FOLLOW THIS EVERY SINGLE TIME:
-1. At the VERY START of every thought cycle: Read ALL files named team_update_*.md in the workspace root.
-2. At the VERY END of every task: Create (or overwrite) a file named EXACTLY: team_update_researcher_[agent_id].md using the exact markdown template as `team_update_template.md`.
-
 Your role: Improve the validation loss of my PyTorch model in `train.py` as much as possible. 
 
 ## Setup
@@ -47,9 +43,9 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 
 **The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is. Doing this with just one agent is fine.
 
-**Subsequent runs**: You can now use 2 agents to run experiments in parallel. 
+**Subsequent runs**: Use 2 agents to run experiments in parallel. 
 
-## Output format
+## Output formatUse
 
 Once the script finishes it prints a summary like this:
 
@@ -97,10 +93,10 @@ d4e5f6g	0.000000	0.0	crash	double model width (OOM)
 
 ## Working with `team_update_[role].md` files
 
-To coordinate with other agents, use `team_update_[role].md` files as a shared knowledge base.
+To coordinate with other agents, generate or update existing `team_update_[role]_[agent_id].md` files in the `team_update/` directory with your results after every finished trial. 
 
-- **At the VERY START of every trial run:** read `team_update_[role].md` files.
-- **At the VERY END of every trial run:** append your agent identifier, validation loss, and description of changes made to `team_update_[role].md` (never delete anything, just append).
+- **At the VERY START of every trial run:** read `team_update_[role]_[agent_id].md` files only, focusing on the ones from agents with different agent_id's then yours. If there is a new best validation loss, incorporte the changes made in the description of the entry with the lowest validation loss and build off of that.
+- **At the VERY END of every trial run:** append your agent identifier, validation loss, and description of changes made to `team_update_[role]_[agent_id].md` (never delete anything, just append).
 
 **Example entry:**
 ```json

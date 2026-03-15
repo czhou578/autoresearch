@@ -1,5 +1,5 @@
 ## TEAM_UPDATE_[ROLE]_[TIMESTAMP]
-**Agent Role**: [e.g. Researcher / Tuner / Validator]
+**Agent Role**: [e.g. Researcher]
 **Timestamp**: [ISO format, e.g. 2026-03-14T20:15:00Z]
 
 **Status** (one word + emoji): 
@@ -14,12 +14,9 @@
 - Decision 2
 
 **Requests to Other Agents**:
-- @TunerAgent: Please try learning rates between 1e-4 and 5e-3 next
-- @ValidatorAgent: Focus on overfitting metrics in the next run
+- eg. My most recent validation loss was the lowest. Incorporate the key findings from my trial run into your next trial run.
 
 **Next Action**:
-- What I will do in the next cycle
+- What I will do in the next cycle (try out new hyperparameters, etc.)
 
 **Files Changed** (if any):
-- resnet_cnn.ipynb
-- results.md

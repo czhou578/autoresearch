@@ -2,84 +2,93 @@ import torch
 from torch import nn
 from torchvision import transforms, datasets
 from torch.utils.data import DataLoader, Subset
+import matplotlib.pyplot as plt
 
-class MBConvBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, expansion_factor, reduction_factor = 4, stride = 1):
+class ResNeXtModule(nn.Module):
+    def __init__(self, in_channel, out_channel, reduce_channel, cardinality, stride=1):
         super().__init__()
 
-        expanded_channels = in_channels * expansion_factor
+        assert reduce_channel % cardinality == 0, \
+            f"bottleneck_channels ({reduce_channel}) must be divisible by cardinality ({cardinality})"
 
-        self.use_skip = (in_channels == out_channels and stride == 1)
-
-        self.expansion_layers = nn.Sequential(
-            nn.Conv2d(in_channels, expanded_channels, kernel_size=(1, 1), stride=1),
-            nn.BatchNorm2d(expanded_channels),
-            nn.SiLU(),
-            nn.Conv2d(expanded_channels, expanded_channels, kernel_size=(3, 3), groups=expanded_channels, padding=1, stride=stride),
-            nn.BatchNorm2d(expanded_channels),
-            nn.SiLU(),        
-        )
-
-        self.global_avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-
-        self.excitation_layers = nn.Sequential(
-            nn.Linear(expanded_channels, expanded_channels // reduction_factor),
-            nn.SiLU(),
-            nn.Linear(expanded_channels // reduction_factor, expanded_channels),
-            nn.Sigmoid(),
-        )
-
-        self.contract_layers = nn.Sequential(
-            nn.Conv2d(expanded_channels, out_channels, kernel_size=1, stride=1),
-            nn.BatchNorm2d(out_channels)
-        )
-
-    
-    def forward(self, x):
-        features = self.expansion_layers(x)
-        pooled_features = self.global_avg_pool(features)
-        squeezed_features = pooled_features.squeeze(-1).squeeze(-1)
-        excited_features = self.excitation_layers(squeezed_features)
-        unsqueezed_features = excited_features.unsqueeze(-1).unsqueeze(-1)
-        attention_features = unsqueezed_features * features
-        final_features = self.contract_layers(attention_features)
-
-        return final_features + x if self.use_skip else final_features
-    
-class EfficientNet(nn.Module):
-    def __init__(self):
-        super().__init__()
         self.layers = nn.Sequential(
-            nn.Conv2d(3, 32, stride=1, kernel_size=3, padding=1),
-            nn.BatchNorm2d(32),
-            nn.SiLU(),
+            nn.Conv2d(in_channel, reduce_channel, kernel_size=1, bias=False),
+            nn.BatchNorm2d(reduce_channel),
+            nn.ReLU(inplace=True),
 
-            MBConvBlock(32, 64, 2, 4, 2),
-            MBConvBlock(64, 64, 2, 4),
-            MBConvBlock(64, 64, 2, 4),
+            nn.Conv2d(reduce_channel, reduce_channel, kernel_size=3, stride=stride,
+                     padding=1, groups=cardinality, bias=False),
+            nn.BatchNorm2d(reduce_channel),
+            nn.ReLU(inplace=True),
 
-            MBConvBlock(64, 128, 3, 4, 2),
-            MBConvBlock(128, 128, 3, 4, 1),
-            MBConvBlock(128, 128, 3, 4, 1),
-            MBConvBlock(128, 128, 3, 4, 1),
-
-            MBConvBlock(128, 256, 3, 4, 2),
-            MBConvBlock(256, 256, 3, 4, 1),
-            MBConvBlock(256, 256, 3, 4, 1),
-            MBConvBlock(256, 256, 3, 4, 1),
-
-
-            nn.Conv2d(256, 512, kernel_size=1),
-            nn.AdaptiveAvgPool2d((1, 1)),
+            nn.Conv2d(reduce_channel, out_channel, kernel_size=1, bias=False),
+            nn.BatchNorm2d(out_channel),
         )
-        self.dropout = nn.Dropout(0.2)
-        self.linear = nn.Linear(512, 100)
+
+        # Shortcut connection for dimension matching
+        self.shortcut = nn.Sequential()
+        if stride != 1 or in_channel != out_channel:
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(in_channel, out_channel, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(out_channel)
+            )
+
+        self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        identity = self.shortcut(x)
+        out = self.layers(x)
+        out += identity
+        out = self.relu(out)
+        return out
+
+class ResNeXtCIFAR(nn.Module):
+    def __init__(self, cardinality=8, width=64, num_classes=100):
+        super().__init__()
+        
+        # First layer: 3×3 conv with 64 filters (no stride, no pooling for CIFAR)
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True)
+        )
+        
+        # Stage 1: 3 blocks, output map size 32×32, width=64
+        self.stage1 = self._make_stage(64, 64, width, cardinality, 3, stride=1)
+        
+        # Stage 2: 3 blocks, output map size 16×16, width=128 (2× increase)
+        self.stage2 = self._make_stage(64, 128, width*2, cardinality, 3, stride=2)
+        
+        # Stage 3: 3 blocks, output map size 8×8, width=256 (2× increase)
+        self.stage3 = self._make_stage(128, 256, width*4, cardinality, 3, stride=2)
+        
+        # Global average pooling + fully connected
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = nn.Linear(256, num_classes)
+    
+    def _make_stage(self, in_channels, out_channels, reduce_channels, cardinality, num_blocks, stride):
+        """Create a stage with multiple ResNeXt blocks"""
+        layers = []
+        
+        # First block handles downsampling and channel increase
+        layers.append(ResNeXtModule(in_channels, out_channels, reduce_channels, 
+                                   cardinality, stride=stride))
+        
+        # Remaining blocks keep same dimensions
+        for _ in range(num_blocks - 1):
+            layers.append(ResNeXtModule(out_channels, out_channels, reduce_channels, 
+                                       cardinality, stride=1))
+        
+        return nn.Sequential(*layers)
     
     def forward(self, x):
-        x = self.layers(x)
-        x = x.squeeze(-1).squeeze(-1)
-        x = self.dropout(self.linear(x))
-
+        x = self.conv1(x)      # 32×32×64
+        x = self.stage1(x)     # 32×32×64
+        x = self.stage2(x)     # 16×16×128
+        x = self.stage3(x)     # 8×8×256
+        x = self.avgpool(x)    # 1×1×256
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
         return x
 
 torch.backends.cudnn.benchmark = True
@@ -100,7 +109,7 @@ train_transform = transforms.Compose([
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # Mild to avoid over-distortion
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5071, 0.4865, 0.4409], std=[0.2673, 0.2564, 0.2761]),
-    transforms.RandomErasing(p=0.5)  # Apply after normalization for consistency
+    transforms.RandomErasing(p=0.25)  # Apply after normalization for consistency
 ])
 
 test_transform = transforms.Compose([
@@ -129,8 +138,8 @@ cifar_val = Subset(
 cifar_test = datasets.CIFAR100(root="./data", train=False, transform=test_transform)
 
 train_loader = DataLoader(
-    cifar_train,  # Use directly
-    batch_size=1024,
+    cifar_train,
+    batch_size=512,  # Changed from 512
     shuffle=True,
     num_workers=2,
     pin_memory=True,
@@ -140,7 +149,7 @@ train_loader = DataLoader(
 
 val_loader = DataLoader(
     cifar_val,  # Use directly
-    batch_size=1024,
+    batch_size=512,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -150,7 +159,7 @@ val_loader = DataLoader(
 
 test_loader = DataLoader(
     cifar_test,
-    batch_size=1024,
+    batch_size=512,
     shuffle=False,
     num_workers=2,
     pin_memory=True,
@@ -160,7 +169,7 @@ test_loader = DataLoader(
 
 num_classes = 100
 
-model = EfficientNet().to(device)
+model = ResNeXtCIFAR(cardinality=8, width=64, num_classes=100).to(device)
 
 num_epochs = 40
 loss_function = nn.CrossEntropyLoss(label_smoothing=0.1)
@@ -171,20 +180,24 @@ scaled_lr = base_lr * batch_scale**0.5  # Square root scaling
 
 optimizer = torch.optim.AdamW(
     model.parameters(),
-    lr=3e-3,  # Keep this for now, let OneCycleLR handle it
-    weight_decay=5e-4
+    lr=3e-3,  # Changed from 1e-3
+    weight_decay=1e-4
 )
 
 scheduler = torch.optim.lr_scheduler.OneCycleLR(
     optimizer,
-    max_lr=5e-3,                # Slightly lower peak LR for stability
-    epochs=num_epochs,          # Keep 45 epochs
+    max_lr=1e-2,  # Changed from 3e-3
+    epochs=num_epochs,
     steps_per_epoch=len(train_loader),
-    pct_start=0.4,              # Increase warmup to 40% (18 epochs)
+    pct_start=0.3,
     anneal_strategy='cos',
-    div_factor=12.0,            # Start LR = 5e-3 / 12 = 4.2e-4
-    final_div_factor=400.0      # Final LR = 5e-3 / 400 = 1.25e-5
+    div_factor=25.0,
+    final_div_factor=1000.0
 )
+
+train_losses = []
+val_losses = []
+epochs_recorded = []
 
 best_val_loss = float('inf')
 
@@ -205,44 +218,42 @@ for epoch in range(num_epochs):
 
         optimizer.step()
         optimizer.zero_grad(set_to_none=True)
-        scheduler.step()
+        scheduler.step()  # Step per batch for OneCycleLR
 
         current_loss += loss.item()
         num_batches += 1
 
         if i % 50 == 0:
+            torch.cuda.empty_cache()
             print(f'Batch {i}/{len(train_loader)}, Loss: {loss.item():.4f}')
 
-
     avg_train_loss = current_loss / num_batches
-    print(f'Epoch {epoch+1} finished')
-    print(f'Training - Loss: {avg_train_loss:.4f}')
 
-    if (epoch + 1) % 2 == 0:
-        model.eval()
-        val_loss = 0.0
-        val_batches = 0
+    # Validate EVERY epoch (removed the if condition)
+    model.eval()
+    val_loss = 0.0
+    val_batches = 0
 
-        print(f'Epoch {epoch+1} finished')
-        print(f'average training loss is {avg_train_loss:.4f}')
+    with torch.no_grad():
+        for val_data in val_loader:
+            val_inputs, val_targets = val_data
+            val_inputs, val_targets = val_inputs.to(device), val_targets.to(device)
 
-        with torch.no_grad():
-            for val_data in val_loader:
-                val_inputs, val_targets = val_data
-                val_inputs, val_targets = val_inputs.to(device), val_targets.to(device)  # Convert inputs to FP16
+            val_outputs = model(val_inputs)
+            val_batch_loss = loss_function(val_outputs, val_targets)
 
-                val_outputs = model(val_inputs)
-                val_batch_loss = loss_function(val_outputs, val_targets)
+            val_loss += val_batch_loss.item()
+            val_batches += 1
 
-                val_loss += val_batch_loss.item()
-                val_batches += 1
+    avg_val_loss = val_loss / val_batches
+    best_val_loss = min(best_val_loss, avg_val_loss)
 
+    # Record metrics every epoch
+    train_losses.append(avg_train_loss)
+    val_losses.append(avg_val_loss)
+    epochs_recorded.append(epoch + 1)
 
-        avg_val_loss = val_loss / val_batches
-
-        print(f'Epoch {epoch+1} finished')
-        print(f'Training - Loss: {avg_train_loss:.4f}')
-        print(f'Validation - Loss: {avg_val_loss:.4f}')
+    print(f'Epoch {epoch+1} - Training Loss: {avg_train_loss:.4f}, Validation Loss: {avg_val_loss:.4f}')
 
 if torch.cuda.is_available():
     torch.cuda.empty_cache()

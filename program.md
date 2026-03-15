@@ -12,11 +12,13 @@ To set up a new experiment, work with the user to:
 
 1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/resnext-artifact-swarm`, but make sure my current IDE workspace branch remains the current branch. 
 
-2. **Read the in-scope files**: The repo is small. Read these files for full context:
+2. **Install requirements**: Run `pip install -r requirements.txt` to install the necessary packages. If there are any errors on this step, try to fix them and re-run. If the errors persist, you can create a fresh conda venv and go from there as a last resort.
+
+3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
    - `templates/` — contains the template for team updates.
-3. **Confirm and go**: Confirm setup looks good.
+4. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.
 

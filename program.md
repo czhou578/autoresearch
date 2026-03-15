@@ -28,6 +28,7 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 - Install new packages or add dependencies. You can only use what's already in `requirements.txt`.
 - Modify the evaluation harness. The `evaluate_test_set` function in `train.py` is the ground truth metric.
 - Create a bunch of non logging related files or other files that are not necessary for evaluating or analzying the overall experiment. 
+- Run any of the experiments on CPU. Divide the GPU resources up for the number of agents. 
 
 **The goal is simple: get the lowest loss.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
 

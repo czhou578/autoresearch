@@ -1,0 +1,112 @@
+=== WORKER 1 BASELINE ===
+Using device: cpu
+Files already downloaded and verified
+Starting Epoch 1
+=== Worker 1 ===
+Training - Loss: 4.4745
+---
+loss:          4.474519
+training_seconds: 303.6
+total_seconds:    303.6
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Worker 2 ===
+Training - Loss: 4.4339
+---
+loss:          4.433933
+training_seconds: 311.0
+total_seconds:    311.0
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 2: Worker 1 ===
+Training - Loss: 4.4037
+---
+loss:          4.403664
+training_seconds: 301.8
+total_seconds:    301.8
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 2: Worker 2 ===
+Training - Loss: 4.4491
+---
+loss:          4.449075
+training_seconds: 307.2
+total_seconds:    307.2
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 3: Worker 1 ===
+Training - Loss: 4.4040
+---
+loss:          4.403990
+training_seconds: 306.9
+total_seconds:    306.9
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 3: Worker 2 ===
+Validation - Loss: 3.5888
+---
+loss:          3.588812
+training_seconds: 308.7
+total_seconds:    308.7
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 4: Worker 1 ===
+Validation - Loss: 3.6298
+---
+loss:          3.629776
+training_seconds: 310.2
+total_seconds:    310.2
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 4: Worker 2 ===
+Validation - Loss: 3.9756
+---
+loss:          3.975648
+training_seconds: 309.3
+total_seconds:    309.3
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 5: Worker 1 ===
+Validation - Loss: 3.5743
+---
+loss:          3.574252
+training_seconds: 308.6
+total_seconds:    308.6
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 5: Worker 2 ===
+Validation - Loss: 3.5641
+---
+loss:          3.564052
+training_seconds: 309.8
+total_seconds:    309.8
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 6: Worker 1 ===
+Validation - Loss: 3.5748
+---
+loss:          3.574787
+training_seconds: 309.2
+total_seconds:    309.2
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2
+=== Loop 6: Worker 2 ===
+Validation - Loss: 3.6004
+---
+loss:          3.600373
+training_seconds: 309.7
+total_seconds:    309.7
+peak_vram_mb:     0.0
+num_steps:        0
+num_params_M:     3.2

@@ -1,25 +1,7 @@
-# Session Log
+Session Log Started.
 
-## Initialization
-- Read `swarm_brain.json` (empty)
-- Read `train.py` and `program.md`
-- Added 5-minute time budget constraint to `train.py`
-- Fixed `num_steps` and `best_val_loss` tracking in `train.py`
-- Replaced 50-batch print logging with every-step logging as requested.
-- Starting baseline run.
-
-## Experiment 2
-Idea: Reduce weight decay to 1e-4 and label smoothing to 0.05
-
-
-## Agent 1 (LR)
-Idea: Increase max LR to 1e-2.
-
-
-## Agent 2 (WD)
-Idea: Reduce weight decay to 1e-4 and label smoothing to 0.05
-
-
-## Agent 3 (BS)
-Idea: Decrease batch size from 256 to 128 to improve generalization (adjusting LR proportionally).
-
+Initial setup:
+- We need to set up 2 worker agents running in parallel.
+- They will branch off origin/autoresearch/efficientnet-swarm-json.
+- We need to coordinate via swarm_brain.json.
+- We will log all experiments to results.tsv and append to run.log.

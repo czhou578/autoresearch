@@ -10,7 +10,7 @@ Your role: Improve the validation loss of my PyTorch model in `train.py` as much
 
 To set up a new experiment, work with the user to:
 
-1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/resnext-artifact-swarm`, but make sure my current IDE workspace branch remains the current branch. 
+1. **Set up Git Branches**: For each agent worker, create a new branch off of the current `origin/autoresearch/resnext-artifact-swarm`, but make sure my current IDE workspace branch remains the current branch.
 
 2. **Install requirements**: Run `pip install -r requirements.txt` to install the necessary packages. If there are any errors on this step, try to fix them and re-run. If the errors persist, you can create a fresh conda venv and go from there as a last resort.
 
@@ -125,6 +125,15 @@ LOOP FOREVER:
 9. If loss is equal or worse, you git reset back to where you started
 
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
+
+**Working with Git**:
+
+For all git operations, always use non-interactive flags:
+- Use `git commit -m "message"` — never bare `git commit` (which opens an editor)
+- Chain commands with && so each step confirms the previous: 
+  git add . && git commit -m "msg" && git status
+- After every commit, run `git status` sequentially to verify before starting the next loop iteration
+- Never use git commands that require interactive input (rebase -i, commit --amend without -m, etc.)
 
 **Timeout**: Each experiment should take ~5 minutes total (+ a few seconds for startup and eval overhead). If a run exceeds 10 minutes, kill it and treat it as a failure (discard and revert). If the worker agent process gets stuck and exceeds the time limit, then kill it and treat it as a failure.
 

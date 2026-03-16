@@ -30,7 +30,7 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 - Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture layers, optimizer, hyperparameters, training loop, batch size, model size, etc. Do not edit the Dataloader or the data preparation logic! In addition, do not throw away the overall model architecture as defined in the comments at the top of the training file. 
 
 - Create log files for each agent to track the progress of each training runs.
-- Divide the GPU resources up for the number of agents. Run commands to check hardware utilization after the completion of each trial before starting the next trial. 
+- Divide the GPU resources up for the number of agents. Run `nvidia-smi` to check hardware utilization after the completion of each trial before starting the next trial. 
 
 **What you CANNOT do:**
 - Install new packages or add dependencies. You can only use what's already in `requirements.txt`.
@@ -38,9 +38,9 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 - Create a bunch of non logging related files or other files that are not necessary for evaluating or analzying the overall experiment. 
 - Run any of the experiments on CPU. 
 
-**The goal is simple: get the lowest loss.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
+**The goal is simple: get the lowest loss.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
 
-**VRAM** is a soft constraint. Some increase is acceptable for meaningful loss gains, but it should not blow up dramatically.
+**VRAM** is a soft constraint. Some increase is acceptable for meaningful loss gains, but it should not blow up dramatically or lead to CUDA OOM errors.
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome — that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 loss improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 loss improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
@@ -116,15 +116,15 @@ LOOP FOREVER:
 
 1. Look at the git state: the current branch/commit we're on
 2. Tune `train.py` with an experimental idea by directly hacking the code.
-3. git commit
+3. git commit -m "<description>"
 4. Run the experiment: `python train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context). Make sure that the loss obtained after both every epoch and every step in an epoch of a trial run is logged into this file. Do NOT erase the log file contents after each trial. Continuously append the results of each trial to the end of the log file until the experiment is completed or terminated. 
 5. Read out the results: `grep "^loss:" run.log`
 6. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
-7. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
+7. Record the results in the tsv
 8. If loss improved (lower), you "advance" the branch, keeping the git commit
 9. If loss is equal or worse, you git reset back to where you started
 
-The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
+The idea is that you are a completely autonomous researcher agent trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
 **Working with Git**:
 

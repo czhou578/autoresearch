@@ -3,6 +3,7 @@ from torch import nn
 from torchvision import transforms, datasets
 from torch.utils.data import DataLoader, Subset
 import matplotlib.pyplot as plt
+import os
 
 class ResNeXtModule(nn.Module):
     def __init__(self, in_channel, out_channel, reduce_channel, cardinality, stride=1):
@@ -101,7 +102,10 @@ print(f"Using device: {device}")
 
 if torch.cuda.is_available():
     print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+    torch.cuda.set_per_process_memory_fraction(0.45, 0)
     torch.cuda.empty_cache()
+
+
 
 train_transform = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
@@ -211,13 +215,45 @@ for epoch in range(num_epochs):
     for i, data in enumerate(train_loader):
         inputs, targets = data
         inputs, targets = inputs.to(device), targets.to(device)
-            
-        outputs = model(inputs)
-        loss = loss_function(outputs, targets)
-        loss.backward()
+
+        optimizer.zero_grad(set_to_none=True)
+
+        try:
+            # OPTIMISTIC PASS: Try full batch
+            outputs = model(inputs)
+            loss = loss_function(outputs, targets)
+            loss.backward()
+
+        except torch.cuda.OutOfMemoryError:
+            # RECOVERY: VRAM spike! Clear cache and use micro-batches
+            import gc
+            gc.collect()
+            torch.cuda.empty_cache()
+
+            print(f"⚠️ VRAM Spike detected at batch {i}. Recovering via Gradient Accumulation...")
+
+            # Process 4 smaller chunks
+            chunks = 4
+            micro_batch_size = max(1, len(inputs) // chunks)
+            micro_loss_sum = 0.0
+
+            for start_idx in range(0, len(inputs), micro_batch_size):
+                end_idx = start_idx + micro_batch_size
+                m_inputs = inputs[start_idx:end_idx]
+                m_targets = targets[start_idx:end_idx]
+
+                m_outputs = model(m_inputs)
+                
+                # Scale loss so the accumulated gradient matches the full batch
+                m_loss = loss_function(m_outputs, m_targets) / chunks
+                m_loss.backward()
+
+                micro_loss_sum += m_loss.item() * chunks # Un-scale for reporting
+
+            # Create a detached tensor with gradient requirement for the logging below
+            loss = torch.tensor(micro_loss_sum)
 
         optimizer.step()
-        optimizer.zero_grad(set_to_none=True)
         scheduler.step()  # Step per batch for OneCycleLR
 
         current_loss += loss.item()
